@@ -9,7 +9,7 @@ angular.module('myApp.registrationClient', ['ngRoute'])
       });
     }])
 
-    .controller('RegistrationClientCtrl', function($scope, $http, $location.$rootScope) {
+    .controller('RegistrationClientCtrl', function($scope, $http, $location, $rootScope) {
         $scope.cars = [];
         $scope.marks = {};
         $scope.client = {};
