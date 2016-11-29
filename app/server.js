@@ -265,6 +265,6 @@ app.post('/getrate', function(req, res){
 //
 //})
 
-app.listen(3001, function(){
-    console.log("listen on server 3001");
+app.listen(process.env.PORT||5000, function(){
+    console.log("listen on server 5000");
 })
