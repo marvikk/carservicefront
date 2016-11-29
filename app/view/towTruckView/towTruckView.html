@@ -1,0 +1,159 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="btn-group" role="group" aria-label="...">
+
+        <div class="btn-group">
+          <!--Address-->
+          <div>{{chosen.FormattedAddress}}</div>
+          <input class="form-control" ng-model="chosen" googleplace/>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default" ng-click="clearPlace()" style="color: red">X</button>
+        </div>
+        <div class="btn-group">
+          <!--<button type="button" class="btn btn-default">Вид работ Автосервисoв<span ng-show="toggleService">: {{checkedService}}</span></button>-->
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+            Categories<span ng-show="toggleCategories">: {{checkedCategories}}</span>
+            <span class="caret"></span>
+          </button>
+          <button type="button" class="btn btn-default" ng-click="clearCategories()" style="color: red">X
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <!--<div class="col-lg-10">-->
+            <!--<div class="input-group">-->
+            <!--<input type="text" class="form-control" placeholder="Search for...">-->
+            <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default" type="button">Go!</button>-->
+            <!--</span>-->
+            <!--</div><!-- /input-group -->
+            <!--</div><!-- /.col-lg-6 -->
+            <li role="separator" class="divider"></li>
+            <li ng-repeat="y in categories">
+              <div class="col-lg-12">
+                <div class="input-group">
+                           <span>
+                               <input type="radio" name="optradio" ng-checked="checkedCategories.indexOf(y) != -1" ng-click="toggleCategories(y)">
+                              {{y}}
+                           </span>
+                </div>
+              </div>
+            </li>
+            <li role="separator" class="divider"></li>
+          </ul>
+        </div>
+
+        <div class="btn-group">
+          <!--<button type="button" class="btn btn-default">Вид работ Автосервисoв<span ng-show="toggleService">: {{checkedService}}</span></button>-->
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+            Вид работ Автосервисoв<span ng-show="toggleService">: {{checkedService}}</span>
+            <span class="caret"></span>
+          </button>
+          <button type="button" class="btn btn-default" ng-click="clearService()" style="color: red">X
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <!--<div class="col-lg-10">-->
+            <!--<div class="input-group">-->
+            <!--<input type="text" class="form-control" placeholder="Search for...">-->
+            <!--<span class="input-group-btn">-->
+            <!--<button class="btn btn-default" type="button">Go!</button>-->
+            <!--</span>-->
+            <!--</div><!-- /input-group -->
+            <!--</div><!-- /.col-lg-6 -->
+            <li role="separator" class="divider"></li>
+            <li ng-repeat="x in services">
+              <div class="col-lg-12">
+                <div class="input-group">
+                           <span>
+                                <input type="checkbox" ng-checked="checkedService.indexOf(x.service) != -1"
+                                       ng-click="toggleService(x.service)">
+                              {{x.service}}
+                           </span>
+                </div>
+              </div>
+            </li>
+            <li role="separator" class="divider"></li>
+            <!--<li>-->
+            <!--<button type="button" class="glyphicon glyphicon-ok">-->
+            <!--Apply-->
+            <!--</button>-->
+            <!--</li>-->
+          </ul>
+        </div>
+
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+            Виды марок машин<span ng-show="toggleService">: {{checkedCars}}</span>
+            <span class="caret"></span>
+          </button>
+          <button type="button" class="btn btn-default" ng-click="clearCars()" style="color: red">X</button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <div class="col-lg-10">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="test">
+                        <span class="input-group-btn">
+                        <!--<button class="btn btn-default" type="button">Go!</button>-->
+                        </span>
+              </div>
+              <!-- /input-group-->
+            </div>
+            <!--col-lg-10 -->
+            <li role="separator" class="divider"></li>
+            <li ng-repeat="z in cars | filter: test">
+              <div class="col-lg-12">
+                <div class="input-group">
+                           <span>
+                               <input type="checkbox" ng-checked="checkedCars.indexOf(z.title) != -1"
+                                      ng-click="toggleCheck(z.title)">
+                              {{z.title}}
+                           </span>
+                </div>
+              </div>
+            </li>
+            <li role="separator" class="divider"></li>
+            <!--<li>-->
+            <!--<button type="button" class="glyphicon glyphicon-ok" ng-click="getCar(carItem)">-->
+            <!--Apply-->
+            <!--</button>-->
+            <!--</li>-->
+          </ul>
+        </div>
+        <div class="btn-group">
+          <button type="button" class="btn btn-default" ng-click="getFilter()">
+            Apply
+          </button>
+        </div>
+      </div>
+      <div>
+        <ol class="list-unstyled">
+          <li ng-repeat="y in towTruck">
+            <div class="form-inline">
+              <div class="form-group">
+                <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/"/>
+              </div>
+              <div class="form-group">
+                <h3><a ng-click="getPageMaster(y.id, y.companyName)" class="href-responsive">{{y.companyName}}</a>
+                </h3>
+                <!--<p ng-show="false" ng-model="idMaster">{{y.id}}</p>-->
+                <p class="form-control-static">Виды машин: {{y.cars}}</p><br>
+
+                <p class="form-control-static"> Categories машин: {{y.categories}}</p><br>
+
+                <p class="form-control-static">Виды услуг: {{y.services}}</p><br>
+                <address ng-hide="!isAuthorization">{{y.chosenPlace.FormattedAddress + ", "+ y.house}}
+                </address>
+                                <span uib-rating style="color: #ffff00" ng-model="y.rate" max="max"
+                                      read-only="isReadonly"></span>
+                Rate: <b ng-disabled="isReadonly">{{y.rate}}</b>
+              </div>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

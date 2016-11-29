@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Welcome to the Car Service Website </h1>
+                <small>The best service in the shortest amount of time</small>
+            </div>
+            <div class="form-inline">
+                <div class="form-group">
+            <div id="map"></div>
+                    </div>
+                <div class="form-group">
+
+                <div id="class" ng-repeat="marker in markers | orderBy : 'title'">
+                <a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a></div>
+                    </div>
+                </div>
+    </div>
+        </div>
+    </div>
+        <style>
+            #map {
+                height:420px;
+                width:600px;
+            }
+            .infoWindowContent {
+                font-size:  14px !important;
+                border-top: 1px solid #ccc;
+                padding-top: 10px;
+            }
+            h2 {
+                margin-bottom:0;
+                margin-top: 0;
+            }
+        </style>

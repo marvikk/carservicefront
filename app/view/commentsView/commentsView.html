@@ -1,0 +1,114 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+                <!--<label class="radio-inline"><input type="radio" ng-model="myVar" value="all" ng-checked="true">All Companies</label>-->
+                <label class="radio-inline"><input type="radio" ng-model="myVar" value="Автосервисы">Автосервисы</label>
+                <label class="radio-inline"><input type="radio" ng-model="myVar" value="Шиномонтажи">Шиномонтажи</label>
+                <label class="radio-inline"><input type="radio" ng-model="myVar" value="Автомойки">Автомойки</label>
+                <label class="radio-inline"><input type="radio" ng-model="myVar" value="Эвакуаторы">Эвакуаторы</label>
+            </div>
+            <br>
+            <div ng-switch="myVar">
+                <div ng-switch-when="Автосервисы">
+                    <ul >
+                    <li ng-repeat="mec in mechanics"><a ng-click="choiceCompany(mec.id)">{{mec.companyName}}</a></li>
+                    </ul>
+                </div>
+                <div ng-switch-when="Шиномонтажи">
+                    <ul>
+                    <li ng-repeat="mou in mounting"><a ng-click="choiceCompany(mou.id)">{{mou.companyName}}</a></li>
+                    </ul>
+                </div>
+                <div ng-switch-when="Автомойки">
+                    <ul>
+                    <li ng-repeat="ca in carWash"><a ng-click="choiceCompany(ca.id)">{{ca.companyName}}</a></li>
+                    </ul>
+                </div>
+                <div ng-switch-when="Эвакуаторы">
+                    <ul>
+                    <li ng-repeat="tow in towTruck"><a ng-click="choiceCompany(tow.id)">{{tow.companyName}}</a></li>
+                    </ul>
+                </div>
+                <div ng-switch-default>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-inline">
+                                <ol class="list-unstyled">
+                                    <li ng-repeat="comm in commentsAll | orderBy: comm.date: reverse : comparator ">
+                                        <div class="form-group">
+                                            <blockquote>
+                                                <span class="glyphicon glyphicon-user"> {{comm.userName}}</span>
+                                                <p>{{comm.date|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                                            </blockquote>
+                                            <h4>{{comm.masterName}}</h4>
+                                            <span uib-rating style="color: #ffff00" ng-model="comm.rate" max="max" read-only="true"></span>
+                                            Rate: <b>{{comm.rate}}</b><br>
+                                            <p>{{comm.comment}}</p>
+                                        </div>
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--Автосервисы <span class="caret"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                    <!--<li ng-repeat="mec in mechanics"><a ng-click="choiceCompany(mec.id)">{{mec.companyName}}</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--Шиномонтажи <span class="caret"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                    <!--<li ng-repeat="mou in mounting"><a ng-click="choiceCompany(mou.id)">{{mou.companyName}}</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--Автомойки <span class="caret"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                    <!--<li ng-repeat="ca in carWash"><a ng-click="choiceCompany(ca.id)">{{ca.companyName}}</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--<div class="btn-group">-->
+                <!--<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                    <!--Эвакуаторы <span class="caret"></span>-->
+                <!--</button>-->
+                <!--<ul class="dropdown-menu">-->
+                    <!--<li ng-repeat="tow in towTruck"><a ng-click="choiceCompany(tow.id)">{{tow.companyName}}</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+
+        </div>
+    </div><br><br>
+
+
+    <div class="row" id="container">
+        <div class="col-md-12">
+            <div class="form-inline">
+                <ol class="list-unstyled">
+                    <li ng-repeat="comm in comments | orderBy: comm.date: reverse : comparator ">
+                        <div class="form-group">
+                            <blockquote>
+                               <span class="glyphicon glyphicon-user"> {{comm.userName}}</span>
+                                <p>{{comm.date|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                            </blockquote>
+                            <h4>{{comm.masterName}}</h4>
+                             <span uib-rating style="color: #ffff00" ng-model="comm.rate" max="max" read-only="true"></span>
+                            Rate: <b>{{comm.rate}}</b><br>
+                            <p>{{comm.comment}}</p>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>

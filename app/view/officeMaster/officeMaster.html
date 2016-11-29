@@ -1,0 +1,211 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div id="exampleTitle1">
+                <h1>Personal account Master</h1>
+            </div>
+            <table class="table table-striped">
+                <tr ng-repeat="one in masters">
+                    <td>Your name</td>
+                    <td>
+                        <input type="text" class="form-control" ng-init="master.companyName = one.companyName;"
+                               id="exampleInputName" ng-model="master.companyName" required/>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Your Services</td>
+                    <td>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." ng-init="master.mechanics = one.mechanics;" ng-model="master.mechanics"></span>
+                                <p class="form-control" aria-label="...">Mechanics</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." ng-init="master.mounting = one.mounting;" ng-model="master.mounting"></span>
+                                <p class="form-control" aria-label="...">Mounting</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." ng-init="master.carWash = one.carWash;" ng-model="master.carWash"></span>
+                                <p class="form-control" aria-label="...">Car wash</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                      <span class="input-group-addon">
+                        <input type="checkbox" aria-label="..." ng-init="master.towTruck = one.towTruck;" ng-model="master.towTruck"></span>
+                                <p class="form-control" aria-label="...">Tow trucks</p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Address</td>
+                    <td>
+                        <div class="form-inline">
+                            <div ng-init="master.chosenPlace = one.chosenPlace;">selection is: {{master.chosenPlace.FormattedAddress}}</div>
+                            <input  class="form-control" ng-model="master.chosenPlace" googleplace/>
+                            House
+                            <input type="text" class="form-control" ng-init="master.house = one.house;"
+                                   id="exampleInputHouse" ng-model="master.house">
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Telephone</td>
+                    <td>
+                        <input type="tel" class="form-control" id="exampleInputTelephone"
+                               ng-init="master.companyTelephone = one.companyTelephone;"
+                               ng-model="master.companyTelephone" required>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Hours</td>
+                    <td>
+                        <div class="form-inline">
+                            <input type="datetime" class="form-control" id="exampleInputTime"
+                                   ng-init="master.startTime = one.startTime"
+                                   ng-model="master.startTime " required>
+                            <input type="datetime" class="form-control" id="exampleInputTime1"
+                                   ng-init="master.lastTime = one.lastTime"
+                                   ng-model="master.lastTime" required>
+                        </div>
+                        <!--| date:'HH:mm';-->
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Vehicle Categories</td>
+                    <td>
+                        <div class="col-lg-4">
+                            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-init="master.bicycle = one.categories.bicycle;" ng-model="master.bicycle">
+      </span>
+                                <p class="form-control" aria-label="...">А - мотоциклы</p>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-3 -->
+                        <div class="col-lg-4">
+                            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-init="master.passCar = one.categories.passCar;" ng-model="master.passCar">
+      </span>
+                                <p class="form-control" aria-label="...">B - легковые автомобили</p>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-3 -->
+                        <div class="col-lg-4">
+                            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-init="master.lorry = one.categories.lorry;" ng-model="master.lorry">
+      </span>
+                                <p class="form-control" aria-label="...">C - грузовые автомобили</p>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-3 -->
+                        <div class="col-lg-4">
+                            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-init="master.bus = one.categories.bus;" ng-model="master.bus">
+      </span>
+                                <p class="form-control" aria-label="...">D - автобусы</p>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-3 -->
+                        <div class="col-lg-4">
+                            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-init="master.moped = one.categories.moped;" ng-model="master.moped">
+      </span>
+                                <p class="form-control" aria-label="...">М - мопеды</p>
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-3 -->
+        </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Your cars</td>
+                    <td>
+                        <div class="form-inline">
+                            <select class="form-control" id="exampleSelectVehicle" ng-model="carItem"
+                                    ng-change="myFunc(carItem)" ng-options="y.title for (x, y) in cars">
+                            </select>
+                            <input type="button" class="btn btn-default" ng-click="addItem(carItem)"
+                                   value="add">
+                        </div>
+                        <br>
+                        <li ng-repeat="item in arrayCarsM track by $index">{{item}}<span ng-click="removeItem($index)"
+                                                                                         style="color: red"> X</span>
+                        </li>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Services</td>
+                    <td>
+                        <div class="form-inline">
+                        <select class="form-control" id="exampleInputServices" ng-model="listServices">
+                            <option ng-repeat="serv in services">{{serv.service}}</option>
+                        </select>
+                            <input type="button" class="btn btn-default" ng-click="addService(listServices)" value="add">
+                        </div>
+                        <br>
+        <li ng-repeat="item in arrayService track by $index" >{{item}}<span ng-click="removeService($index)" style="color: red"> X</span></li>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td> Name of Manager</td>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInputNameManager"
+                               ng-init="master.managerName = one.managerName;"
+                               ng-model="master.managerName" required>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Telephone of Manager</td>
+                    <td>
+                        <input type="tel" class="form-control" id="exampleInputTelManager"
+                               ng-init="master.managerTelephone = one.managerTelephone;"
+                               ng-model="master.managerTelephone" required>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td> Name of Director</td>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInputDirector"
+                               ng-init="master.directorName = one.directorName;" ng-model="master.directorName"
+                               required>
+                    </td>
+                </tr>
+                <tr ng-repeat="one in masters">
+                    <td>Logo</td>
+                    <td>
+                        <div class="form-inline">
+                            <input type="file" oi-file="options" class="form-control" id="exampleInputLogo"
+                                   ng-init="master.logo = one.logo;" ng-model="master.logo"/>
+                            <input type="button" class="btn btn-default" ng-click="addImg(master.logo)" value="add">
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-repeat="aut in authorization">
+                    <td>Email</td>
+                    <td>
+                        <input type="text" class="form-control" id="exampleInputName10"
+                               ng-init="auth.email = aut.email;" ng-model="auth.email" required/>
+                    </td>
+                </tr>
+                <tr ng-repeat="aut in authorization">
+                    <td>Password</td>
+                    <td>
+                        <input type="password" class="form-control" id="exampleInputPass"
+                               ng-init="auth.password = aut.password;" ng-model="auth.password" required/>
+                    </td>
+                </tr>
+            </table>
+            <button type="button" class="btn btn-default btn-sm btn-block" ng-repeat="aut in authorization"
+                    ng-click="updateMaster(aut.id)">Save chances
+            </button>
+            <br>
+        </div>
+    </div>
+</div>

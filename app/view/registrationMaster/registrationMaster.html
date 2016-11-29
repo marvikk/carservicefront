@@ -1,0 +1,180 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div id="exampleTitle2">
+        <h1>Registration Master</h1>
+      </div><br>
+      <form role="form" ng-submit="addMaster()">
+
+        <div class="row">
+          <div class="col-lg-3">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.mechanics">
+      </span>
+              <p class="form-control" aria-label="...">Mechanics</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+          <div class="col-lg-3">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.mounting">
+      </span>
+              <p class="form-control" aria-label="...">Mounting</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+          <div class="col-lg-3">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.carWash">
+      </span>
+              <p class="form-control" aria-label="...">Car wash</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+          <div class="col-lg-3">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.towTruck">
+      </span>
+              <p class="form-control" aria-label="...">Tow trucks</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+        </div><!-- /.row --><br>
+
+        <div class="form-group">
+          <label for="exampleInputCName">
+            Company Name
+          </label>
+          <input type="text" class="form-control" id="exampleInputCName" ng-model="master.companyName" required/>
+        </div>
+        <div class="form-inline">
+          Address
+            <div>selection is: {{master.chosenPlace.FormattedAddress}}</div>
+            <input class="form-control" ng-model="master.chosenPlace" googleplace/>
+            House
+            <input type="text" class="form-control" id="exampleInputHouse" ng-model="master.house">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputTelephone">
+            Telephone
+          </label>
+          <input type="tel" class="form-control" id="exampleInputTelephone" ng-model="master.companyTelephone" required>
+        </div>
+        <div class="form-inline">
+           Start Hour
+          <input type="datetime" class="form-control" id="exampleInputTime"
+                 placeholder="09:00"
+                 ng-model="master.startTime " required>
+          End Hour
+          <input type="datetime" class="form-control" id="exampleInputTime1"
+                 placeholder="18:00"
+                 ng-model="master.lastTime" required>
+        </div><br>
+        <div class="form-group">
+          <label for="exampleInputEmail2">
+            Email address
+          </label>
+          <input type="email" class="form-control" id="exampleInputEmail2" ng-model="masterAuth.email" required/>
+        </div>
+          <label>Vehicle Categories</label>
+        <div class="form-group">
+          <div class="col-lg-8">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.categories.bicycle">
+      </span>
+              <p class="form-control" aria-label="...">А - мотоциклы</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+          <div class="col-lg-8">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.categories.passCar">
+      </span>
+              <p class="form-control" aria-label="...">B - легковые автомобили</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+          <div class="col-lg-8">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.categories.lorry">
+      </span>
+              <p class="form-control" aria-label="...">C - грузовые автомобили</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+          <div class="col-lg-8">
+            <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.categories.bus">
+      </span>
+              <p class="form-control" aria-label="...">D - автобусы</p>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-3 -->
+        <div class="col-lg-8">
+          <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" aria-label="..." ng-model="master.categories.moped">
+      </span>
+            <p class="form-control" aria-label="...">М - мопеды</p>
+          </div><!-- /input-group -->
+        </div><!-- /.col-lg-3 -->
+    </div><!-- /.row --><br><br>
+
+        <div class="form-inline">
+        <div class="form-group">
+          Vehicles
+          <select class="form-control" id="exampleSelectVehicle" ng-model="listCars">
+            <option ng-repeat="car in cars">{{car.title}}</option>
+            <input type="button" class="btn btn-default" ng-click="addItem(listCars)" value="add">
+          </select><br><br>
+          </div>
+          <li ng-repeat="item in arrayCarsM track by $index" >{{item}}<span ng-click="removeItem($index)" style="color: red"> X</span></li>
+        </div><br>
+        <div class="form-inline">
+        <div class="form-group">
+          <label for="exampleInputServices">
+            Services
+          </label>
+          <select class="form-control" id="exampleInputServices" ng-model="listServices">
+            <option ng-repeat="serv in services">{{serv.service}}</option>
+            <input type="button" class="btn btn-default" ng-click="addService(listServices)" value="add">
+            </select><br><br>
+        </div>
+          <li ng-repeat="item in arrayService track by $index" >{{item}}<span ng-click="removeService($index)" style="color: red"> X</span></li>
+        </div><br>
+        <div class="form-group">
+          <label for="exampleInputNameManager">
+            Name of Manager
+          </label>
+          <input type="text" class="form-control" id="exampleInputNameManager" ng-model="master.managerName" required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputTelManager">
+            Telephone of Manager
+          </label>
+          <input type="tel" class="form-control" id="exampleInputTelManager" ng-model="master.managerTelephone"  required>
+        </div>
+        <div class="form-group">
+          <label for="exampleInputDirector">
+            Name of Director
+          </label>
+          <input type="text" class="form-control" id="exampleInputDirector" ng-model="master.directorName"  required>
+        </div>
+        <div class="form-inline">
+          <div class="form-group">
+            Logo
+            <input type="file" oi-file="options" class="form-control" id="exampleInputLogo" ng-model="master.logo" />
+            <input type="button" class="btn btn-default" ng-click="addImg(master.logo)" value="add">
+          </div>
+        </div><br>
+        <button type="submit" class="btn btn-default">
+          Submit
+        </button>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<!--<p href="powered_by_google_on_white.png"></p>-->
+

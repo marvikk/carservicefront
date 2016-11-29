@@ -1,0 +1,70 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+                <h2 class="text-center">Tender</h2><br>
+                        <table class="table table-bordered table-striped">
+                            <tr>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="text-left">
+                                                <a ng-click="getPageTender(pageTender.id)" class="href-responsive">{{pageTender.service}} <p>{{pageTender.car}}</p></a>
+                                                <p>{{pageTender.chosenPlace.FormattedAddress}}</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="text-right">
+                                                <h4>{{pageTender.sum}}₪</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <p>{{pageTender.comment}}</p>
+                                        <footer class="text-right"><cite title="Author Title">{{pageTender.userName}}</cite></footer>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <p>{{pageTender.date|date:'yyyy-MM-dd'}}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-inline">
+                <ol class="list-unstyled">
+                    <li ng-repeat="comm in comments">
+                        <div class="form-group">
+                            <blockquote>
+                                <span class="glyphicon glyphicon-wrench">
+                                    <a ng-click="getPageMaster(comm.masterId, comm.masterName)" class="href-responsive">
+                                    {{comm.masterName}}</a></span>
+                                <p>{{comm.date|date:'yyyy-MM-dd HH:mm:ss'}}</p>
+                            </blockquote>
+                            <p>{{comm.comment}}</p>
+                        </div>
+                    </li>
+                </ol>
+
+            </div>
+        </div>
+    </div>
+    <div class="container" ng-if="isAuthorization && Person == 'master'">
+        <form>
+            <div class="form-group">
+                <label for="comment">{{Name}}, write your comment</label><br>
+                <textarea class="form-control" rows="5" id="comment" ng-model="comment.comment"></textarea>
+            </div>
+            <button type="button" class="btn btn-default" ng-click="saveComment()">Save</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{
+  "name": "CarsService",
+  "version": "1.0.0",
+  "description": "CarsService",
+  "repository": "",
+  "license": "",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "angular": "^1.5.9",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "new-sequelize-restful": "0.0.20",
+    "pg": "^6.1.0",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.25.0"
+  },
+  "engines": {
+    "node": ">=4.4.3"
+  }
+}
