@@ -7,13 +7,28 @@ var Sequelize = require("sequelize");
 var Restful = require('new-sequelize-restful');
 var cors = require('cors');
 
+if(!process.env.DATABASE_URL){
 var connection = new Sequelize('carservice2', 'postgres', 'password',//db-name, owner in db, password in db
     {
         host: 'localhost',
         dialect: 'postgres'
         //logging: true
     });
-
+    }
+//DATABASE_URL: postgresql-tetrahedral-32355
+else if(process.env.DATABASE_URL){
+var match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
+var connection = new Sequelize(match[5], match[1], match[2], {
+    dialect:  'postgres',
+    protocol: 'postgres',
+    port:     match[4],
+    host:     match[3],
+    logging: false,
+    dialectOptions: {
+        ssl: true
+    }
+});
+}
 connection.authenticate().then(function(){
     console.log('connect to db');
 }).catch(function(err){
@@ -265,6 +280,6 @@ app.post('/getrate', function(req, res){
 //
 //})
 
-app.listen(process.env.PORT||5000, function(){
+app.listen(process.env.PORT||3001, function(){
     console.log("listen on server 5000");
 })

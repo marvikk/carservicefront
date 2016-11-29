@@ -63,8 +63,8 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         $scope.masterAuth.role = "master";
 
          $scope.addMaster = function() {
-             var url4 = "http://localhost:3001/api/authentic";
-             var url3 = "http://localhost:3001/api/masters";
+             var url4 = $rootScope.url+"api/authentic";
+             var url3 = $rootScope.url+"api/masters";
              $http.post(url3, $scope.master).success(function (response) {
                  $scope.masterAuth.idUser = response.id;
                  $http.post(url4, $scope.masterAuth).success(function (response) {

@@ -20,7 +20,7 @@ angular.module('myApp.officeClient', ['ngRoute'])
         $scope.client = {};
         $scope.auth = {};
 
-        var urlC = "http://localhost:3001/api/clients?id=" + $rootScope.Id;
+        var urlC = $rootScope.url+'api/clients?id=' + $rootScope.Id;
         $http.get(urlC).success(function(response){
             $scope.user = response;
            // console.log(response)
@@ -32,7 +32,7 @@ angular.module('myApp.officeClient', ['ngRoute'])
                 }
             }
         });
-        var urlA = "http://localhost:3001/getclientbyid";
+        var urlA = $rootScope.url+'getclientbyid';
         var idUser =$rootScope.Id;
         $http.post(urlA,
             {id: idUser,
@@ -71,9 +71,9 @@ angular.module('myApp.officeClient', ['ngRoute'])
         $scope.updateClient = function (idAuth) {
             $scope.client.cars = $scope.arrayCarsM;
             $scope.auth.idUser = $rootScope.Id;
-            $http.put("http://localhost:3001/api/clients/" + $rootScope.Id, $scope.client).success(function (response) {
+            $http.put($rootScope.url+"clients/" + $rootScope.Id, $scope.client).success(function (response) {
                 console.log($scope.client);
-                $http.put("http://localhost:3001/api/authentic/" + idAuth, $scope.auth).success(function (response) {
+                $http.put($rootScope.url+"api/authentic/" + idAuth, $scope.auth).success(function (response) {
                     console.log(response);
 
                 });

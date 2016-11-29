@@ -32,7 +32,7 @@ angular.module('myApp.towTruckView', ['ngRoute'])
                 $scope.cars = data;
             })
 
-        $http.get('http://localhost:3001/api/masters').success(function (response) {
+        $http.get($rootScope.url+'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].towTruck === true){
                     $scope.towTruck.push(response[x]);
@@ -87,7 +87,7 @@ angular.module('myApp.towTruckView', ['ngRoute'])
         }
 
         $scope.getFilter = function() {
-            $http.post('http://localhost:3001/gettowtruckbyall', {
+            $http.post($rootScope.url+'gettowtruckbyall', {
                 services: $scope.checkedService,
                 cars: $scope.checkedCars,
                 chosenPlace: $scope.chosen || {

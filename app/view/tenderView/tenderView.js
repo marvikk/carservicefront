@@ -19,7 +19,7 @@ angular.module('myApp.tenderView', ['ngRoute'])
         $scope.client = [];
         $scope.tenders = [];
 
-        var url = "http://localhost:3001/api/clients/" + $rootScope.Id;
+        var url = $rootScope.url+"api/clients/" + $rootScope.Id;
         $http.get(url).success(function(data){
             console.log(data)
             $scope.client = data;
@@ -33,7 +33,7 @@ angular.module('myApp.tenderView', ['ngRoute'])
 
         $scope.tender.idUser = $rootScope.Id;
         $scope.tender.userName =  $rootScope.Name;
-        var url2 = "http://localhost:3001/api/tenders";
+        var url2 = $rootScope.url+"api/tenders";
         $scope.addTender = function(){
             $http.post(url2, $scope.tender).success(function(data){
                 console.log($scope.tender)

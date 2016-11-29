@@ -20,12 +20,12 @@ angular.module('myApp.viewLogin', ['ngRoute'])
 
 
         function Login(email, password){
-            $http.get('http://localhost:3001/api/authentic?email='+email).success(function(response){
+            $http.get($rootScope.url+'api/authentic?email='+email).success(function(response){
                 if(response[0]){
                     if(response[0].password == password){
                         if(response[0].role =="client") {
                             console.log('Great!!!  you client');
-                            $http.get('http://localhost:3001/api/clients/'+response[0].idUser).success(function(data) {
+                            $http.get($rootScope.url+'api/clients/'+response[0].idUser).success(function(data) {
                             $cookieStore.put("Name", data.name);
                             $cookieStore.put("Id", response[0].idUser);
                             $cookieStore.put("isAuthorization", true);
@@ -35,7 +35,7 @@ angular.module('myApp.viewLogin', ['ngRoute'])
                             });
                         }else if(response[0].role == "master"){
                             console.log('Great!!!  you master');
-                            $http.get('http://localhost:3001/api/masters/'+response[0].idUser).success(function(data) {
+                            $http.get($rootScope.url+'api/masters/'+response[0].idUser).success(function(data) {
                             $cookieStore.put("Name", data.companyName);
                             $cookieStore.put("Id", response[0].idUser);
                             $cookieStore.put("isAuthorization", true);

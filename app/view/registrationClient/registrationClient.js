@@ -42,8 +42,8 @@ angular.module('myApp.registrationClient', ['ngRoute'])
         }
 
         $scope.addClient = function () {
-            var url1 = "http://localhost:3001/api/authentic";
-            var url = "http://localhost:3001/api/clients";
+            var url1 = $rootScope.url+"api/authentic";
+            var url = $rootScope.url+"api/clients";
             $scope.auth.password = "12345";
             $scope.auth.role = "client";
 

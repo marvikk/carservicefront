@@ -19,7 +19,7 @@ angular.module('myApp.pageTender', ['ngRoute'])
 
 // poluchau avtoservice po id
         var id = localStorage.getItem('idTender')
-        var url = "http://localhost:3001/api/tenders/" + id;
+        var url = $rootScope.url+"api/tenders/" + id;
         //localStorage.clear();
 
         $http.get(url).
@@ -32,7 +32,7 @@ angular.module('myApp.pageTender', ['ngRoute'])
 //sohraniau comment
         $scope.comment = {};
 
-        var url3 = 'http://localhost:3001/api/commentstender';
+        var url3 = $rootScope.url+'api/commentstender';
         $scope.saveComment = function(){
             $scope.comment.masterName = $rootScope.Name;
             $scope.comment.masterId = $rootScope.Id;
@@ -49,7 +49,7 @@ angular.module('myApp.pageTender', ['ngRoute'])
         // poluchau kommenty
         // TODO ...
         $scope.comments = [];
-        var url2 = "http://localhost:3001/commentstenders";
+        var url2 = $rootScope.url+"commentstenders";
         //?idTender="+id;
         $http.post(url2, {id: id}).
             success(function(data){

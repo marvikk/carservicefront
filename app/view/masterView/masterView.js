@@ -35,7 +35,7 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
             })
 
 
-        $http.get('http://localhost:3001/api/masters').success(function (response) {
+        $http.get($rootScope.url+'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].mechanics === true){
                     $scope.mechanics.push(response[x]);
@@ -66,7 +66,7 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
             } else {
                 $scope.checkedCars.splice($scope.checkedCars.indexOf(car), 1);
             }
-            //$http.post('http://localhost:3001/getmastersbycars', {
+            //$http.post($rootScope.url+'getmastersbycars', {
             //    cars: $scope.checkedCars,
             //    mechanics: true
             //}).success(function(result){
@@ -86,7 +86,7 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
                 $scope.checkedService.splice($scope.checkedService.indexOf(service), 1);
             }
             console.log($scope.checkedService)
-            //$http.post('http://localhost:3001/getmastersbyservice', {
+            //$http.post($rootScope.url+'getmastersbyservice', {
             //    services: $scope.checkedService,
             //    mechanics: true
             //}).success(function(result){
@@ -104,7 +104,7 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         }
 
         $scope.getFilter = function() {
-            $http.post('http://localhost:3001/getmechanicsbyall', {
+            $http.post($rootScope.url+'getmechanicsbyall', {
                 services: $scope.checkedService,
                 cars: $scope.checkedCars,
                 chosenPlace: $scope.chosen || {

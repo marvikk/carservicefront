@@ -20,7 +20,7 @@ angular.module('myApp.commentsView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.
         $scope.towTruck = [];
 
 
-        $http.get('http://localhost:3001/api/masters').success(function (response) {
+        $http.get($rootScope.url+'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].mechanics === true){
                     $scope.mechanics.push(response[x]);
@@ -28,7 +28,7 @@ angular.module('myApp.commentsView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.
             }
             console.log($scope.mechanics);
         });
-        $http.get('http://localhost:3001/api/masters').success(function (response) {
+        $http.get($rootScope.url+'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].mounting === true){
                     $scope.mounting.push(response[x]);
@@ -36,7 +36,7 @@ angular.module('myApp.commentsView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.
             }
             console.log($scope.mounting);
         });
-        $http.get('http://localhost:3001/api/masters').success(function (response) {
+        $http.get($rootScope.url+'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].towTruck === true){
                     $scope.towTruck.push(response[x]);
@@ -44,7 +44,7 @@ angular.module('myApp.commentsView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.
             }
             console.log($scope.towTruck);
         });
-        $http.get('http://localhost:3001/api/masters').success(function (response) {
+        $http.get($rootScope.url+'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].carWash === true){
                     $scope.carWash.push(response[x]);
@@ -54,7 +54,7 @@ angular.module('myApp.commentsView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.
         });
 
         $scope.commentsAll = [];
-        $http.get('http://localhost:3001/api/comments').success(function (response) {
+        $http.get($rootScope.url+'api/comments').success(function (response) {
             $scope.commentsAll = response;
         });
         $scope.max = 5;
@@ -64,7 +64,7 @@ angular.module('myApp.commentsView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.
 
             $scope.rates = [];
             $scope.comments = [];
-            var url2 = "http://localhost:3001/getcomments";
+            var url2 = $rootScope.url+'getcomments';
             $http.post(url2, {id: data.toString()}).
                 success(function(data) {
                     $scope.comments = data;

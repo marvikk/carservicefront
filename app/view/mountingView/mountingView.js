@@ -32,7 +32,7 @@ angular.module('myApp.mountingView', ['ngRoute'])
                 $scope.cars = data;
             })
 
-        $http.get('http://localhost:3001/api/masters').success(function (response) {
+        $http.get($rootScope.url+'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].mounting === true){
                     $scope.mounting.push(response[x]);
@@ -86,7 +86,7 @@ angular.module('myApp.mountingView', ['ngRoute'])
         }
 
         $scope.getFilter = function() {
-            $http.post('http://localhost:3001/getmountingbyall', {
+            $http.post($rootScope.url+'getmountingbyall', {
                 services: $scope.checkedService,
                 cars: $scope.checkedCars,
                 chosenPlace: $scope.chosen || {

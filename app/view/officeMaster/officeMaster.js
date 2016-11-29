@@ -23,7 +23,7 @@ angular.module('myApp.officeMaster', ['ngRoute'])
         $scope.auth = {};
 
 
-        var urlC = "http://localhost:3001/api/masters?id=" + $rootScope.Id;
+        var urlC = $rootScope.url+"api/masters?id=" + $rootScope.Id;
         $http.get(urlC).success(function(response){
             $scope.masters = response;
             //put all cars from masters in arrCars
@@ -40,7 +40,7 @@ angular.module('myApp.officeMaster', ['ngRoute'])
             $scope.master.services = $scope.arrayService;
 
         });
-        var urlA = "http://localhost:3001/getclientbyid";
+        var urlA = $rootScope.url+"getclientbyid";
         var idUser =$rootScope.Id;
         $http.post(urlA,
             {id: idUser,
@@ -92,9 +92,9 @@ angular.module('myApp.officeMaster', ['ngRoute'])
 
         $scope.updateMaster = function (idAuth) {
 
-            $http.put("http://localhost:3001/api/masters/" + $rootScope.Id, $scope.master).success(function (response) {
+            $http.put($rootScope.url+"api/masters/" + $rootScope.Id, $scope.master).success(function (response) {
                 console.log($scope.master);
-                $http.put("http://localhost:3001/api/authentic/" + idAuth, $scope.auth).success(function (response) {
+                $http.put($rootScope.url+"api/authentic/" + idAuth, $scope.auth).success(function (response) {
                     console.log(response);
                 });
             });

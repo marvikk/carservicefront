@@ -19,7 +19,7 @@ angular.module('myApp.pageMaster', ['ngRoute'])
 
 // poluchau avtoservice po id
         var id = localStorage.getItem('idMaster')
-        var url = 'http://localhost:3001/api/masters?id=' + id;
+        var url = $rootScope.url+'api/masters?id=' + id;
         //localStorage.clear();
 
         $http.get(url).
@@ -32,7 +32,7 @@ angular.module('myApp.pageMaster', ['ngRoute'])
 //sohraniau comment
         $scope.comment = {};
 
-        var url3 = 'http://localhost:3001/api/comments';
+        var url3 = $rootScope.url+'api/comments';
         $scope.saveComment = function(){
             $scope.comment.userName = $rootScope.Name;
             $scope.comment.userId = $rootScope.Id;
@@ -62,7 +62,7 @@ angular.module('myApp.pageMaster', ['ngRoute'])
         // TODO ...
         $scope.comments = [];
         $scope.rates = [];
-        var url2 = "http://localhost:3001/getcomments";
+        var url2 = $rootScope.url+"getcomments";
         console.log(id)
         $http.post(url2, {id: id}).
             success(function(data){
@@ -79,7 +79,7 @@ angular.module('myApp.pageMaster', ['ngRoute'])
                     console.log($scope.resultOne)
                     $scope.result = ($scope.resultOne / $scope.rates.length).toFixed(1);
 
-                    $http.post('http://localhost:3001/getrate', {
+                    $http.post($rootScope.url+'getrate', {
                         id: id,
                         rate: $scope.result
                     }).success(function (response) {

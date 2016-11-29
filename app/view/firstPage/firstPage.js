@@ -26,7 +26,7 @@ angular.module('myApp.firstPage', ['ngRoute'])
 
         var infoWindow = new google.maps.InfoWindow();
 
-        var url = 'http://localhost:3001/api/masters';
+        var url = $rootScope.url + 'api/masters';
 
         $http.get(url).
             success(function(data){
