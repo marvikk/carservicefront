@@ -14,7 +14,7 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
 
     .controller('MasterViewCtrl', function ($scope, $http, $location, $rootScope) {
         $scope.mechanics = [];
-        $scope.services = [];
+        $scope.services = listOfServices;
         $scope.cars = [];
         $scope.checkedCars = [];
         $scope.checkedService = [];
@@ -22,11 +22,11 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
 
 
 
-        var url1 = "http://localhost:3000/services";
+      /*  var url1 = "http://localhost:3000/services";
         $http.get(url1)
             .success(function(data){
                 $scope.services = data;
-            });
+            });*/
 
         var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
         $http.jsonp(url)

@@ -15,7 +15,7 @@ angular.module('myApp.tenderView', ['ngRoute'])
     .controller('TenderViewCtrl', function($scope, $http, $rootScope, $location) {
 
         $scope.tender = {};
-        $scope.services = [];
+        $scope.services = listOfServices;
         $scope.client = [];
         $scope.tenders = [];
 
@@ -25,11 +25,11 @@ angular.module('myApp.tenderView', ['ngRoute'])
             $scope.client = data;
         });
 
-        var url1 = "http://localhost:3000/services";
+        /*var url1 = "http://localhost:3000/services";
         $http.get(url1)
             .success(function(data){
                 $scope.services = data;
-            })
+            })*/
 
         $scope.tender.idUser = $rootScope.Id;
         $scope.tender.userName =  $rootScope.Name;

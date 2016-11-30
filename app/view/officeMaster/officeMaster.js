@@ -16,7 +16,7 @@ angular.module('myApp.officeMaster', ['ngRoute'])
         $scope.arrayCarsM = [];
         $scope.cars = [];
         $scope.marks = {};
-        $scope.services = [];
+        $scope.services = listOfServices;
         $scope.arrayService = [];
 
         $scope.master = {};
@@ -70,11 +70,11 @@ angular.module('myApp.officeMaster', ['ngRoute'])
             $scope.arrayCarsM.splice(x, 1);
         }
 //add Services
-        var url1 = "http://localhost:3000/services";
+        /*var url1 = "http://localhost:3000/services";
         $http.get(url1)
             .success(function(data){
                 $scope.services = data;
-            })
+            })*/
         $scope.addService = function(item){
             $scope.arrayService.push(item);
             $scope.master.services = $scope.arrayService;

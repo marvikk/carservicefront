@@ -15,7 +15,8 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         $scope.master = {};
         $scope.cars = [];
         $scope.arrayCarsM = [];
-        $scope.services = [];
+        $scope.services = listOfServices;
+    console.log(listOfServices);
         $scope.arrayService = [];
         $scope.masterAuth = {};
 
@@ -35,11 +36,11 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
             $scope.arrayCarsM.splice(x, 1);
         }
 //add Services
-        var url1 = "http://localhost:3000/services";
+        /*var url1 = "http://localhost:3000/services";
         $http.get(url1)
             .success(function(data){
                 $scope.services = data;
-            })
+            })*/
 
         $scope.addService = function(item){
             $scope.arrayService.push(item);

@@ -14,17 +14,17 @@ angular.module('myApp.towTruckView', ['ngRoute'])
 
     .controller('TowTruckViewCtrl', function($scope, $http, $rootScope, $location) {
     $scope.towTruck = [];
-        $scope.services = [];
+        $scope.services = listOfServices;
         $scope.cars = [];
         $scope.checkedCars = [];
         $scope.checkedService = [];
         $scope.checkedCategories = "passCar";
 
-        var url1 = "http://localhost:3000/services";
+      /*  var url1 = "http://localhost:3000/services";
         $http.get(url1)
             .success(function(data){
                 $scope.services = data;
-            });
+            });*/
 
         var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
         $http.jsonp(url)
