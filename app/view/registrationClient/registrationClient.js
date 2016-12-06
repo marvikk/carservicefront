@@ -17,20 +17,20 @@ angular.module('myApp.registrationClient', ['ngRoute'])
 
         $scope.arrayCarsM =[];
 
-        var url ="http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+        var url = $rootScope.url + "api/carmanufacturerapi";
         var url1 = "";
 
-        $http.jsonp(url)
+        $http.get(url)
           .success(function(data){
               $scope.cars = data;
                 console.log($scope.client);
 
           });
         $scope.myFunc = function(carObj) {
-            url1 ="http://casco.cmios.ru/api" +carObj.url+ "?callback=JSON_CALLBACK";
-            $http.jsonp(url1)
+            url1 =$rootScope.url + "api/carmodelsapi/" +carObj.id;
+            $http.get(url1)
                 .success(function(result){
-                    $scope.marks = result.models;
+                    $scope.marks = result.model.models;
                 });
         };
         $scope.addItem = function(item, item1, item2, item3){

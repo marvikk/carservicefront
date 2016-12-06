@@ -146,6 +146,34 @@ CommentsTender.sync().then(function(){
 }).catch(function(err){
     console.log('success error '+ err);
 });
+//cars-models api
+var CarManufacturerApi = connection.define("carmanufacturerapi",{
+    "id": {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    "title": Sequelize.STRING
+});
+CarManufacturerApi.sync().then(function(){
+    console.log('Success');
+}).catch(function(err){
+    console.log('success error '+ err);
+});
+
+var CarModelsApi = connection.define("carmodelsapi",{
+    "id": {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    "model": Sequelize.JSON(Sequelize.TEXT)
+});
+CarModelsApi.sync().then(function(){
+    console.log('Success');
+}).catch(function(err){
+    console.log('success error '+ err);
+});
+
+
 app.post('/getcomments', function(req, res){
     //console.log(req.body.id);
     Comment.findAll({where: {
@@ -281,5 +309,5 @@ app.post('/getrate', function(req, res){
 //})
 
 app.listen(process.env.PORT||3001, function(){
-    console.log("listen on server 5000");
+    console.log("listen on server 3001");
 })
