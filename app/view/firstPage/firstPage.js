@@ -40,7 +40,7 @@ angular.module('myApp.firstPage', ['ngRoute'])
         }
           };
       
-        var loopFunction = function(id){
+        /*var loopFunction = function(id){
         var modelId = resArray[id].id;
           console.log(modelId)
           var modelsObj = {};
@@ -56,7 +56,7 @@ angular.module('myApp.firstPage', ['ngRoute'])
           
             for(var k=0;k<resArray.length;k++){
           loopFunction(k);
-      }
+      }*/
         
     
 })
