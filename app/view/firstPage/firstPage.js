@@ -13,7 +13,62 @@ angular.module('myApp.firstPage', ['ngRoute'])
     }])
 
     .controller('FirstPageCtrl', function($scope, $http, $rootScope, $location, $window) {
-
+    
+    
+    
+    ///////////
+    
+    
+    
+    
+    
+    $scope.greeting = "hello";
+    var url = "secure-citadel-93919.herokuapp.com/"
+    $http.get('http://casco.cmios.ru/api/cars/').success(function(response){
+        var resArray = [];
+        for(var i=0; i<response.length;i++){
+            var resObj = {};
+            resObj.id = response[i].id;
+            resObj.title = response[i].title;
+            resArray.push(resObj);
+        for(var j=0;j<resArray.length;j++){
+        $http.post(url+"api/carmanufacturerapi", resArray[j]).success(
+        function(response){
+            console.log(response);
+        }
+        )
+        }
+          };
+      
+        var loopFunction = function(id){
+        var modelId = resArray[id].id;
+          console.log(modelId)
+          var modelsObj = {};
+          $http.get('http://casco.cmios.ru/api/cars/'+modelId).success(function(response){       
+                modelsObj.id = modelId;
+                modelsObj.model = response;
+                console.log(modelsObj);
+              $http.post(url+"api/carmodelsapi",modelsObj).success(function(response){
+                console.log(response);
+            });
+            })
+        }
+          
+            for(var k=0;k<resArray.length;k++){
+          loopFunction(k);
+      }
+        
+    
+})
+    
+    
+    
+    
+    
+    
+    
+    
+//////////
         var mapOptions = {
             zoom: 7,
             center: new google.maps.LatLng(31.3000, 34.4500),
