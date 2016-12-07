@@ -89,7 +89,8 @@ var Master = connection.define('masters', {
     "services": Sequelize.ARRAY(Sequelize.TEXT),
     "logo": Sequelize.STRING,
     "categories": Sequelize.JSON(Sequelize.TEXT),
-    "rate": Sequelize.FLOAT
+    "rate": Sequelize.FLOAT,
+    "amountComments": Sequelize.NUMBER
 });
 Master.sync().then(function(){
     console.log('Success');
@@ -280,7 +281,8 @@ app.post('/gettowtruckbyall', function(req, res){
 
 app.post('/getrate', function(req, res){
     Master.update({
-            rate: req.body.rate
+            rate: req.body.rate,
+        amountComments: req.body.amount
         },{where:
         {id : req.body.id }
         }).then(function(result){

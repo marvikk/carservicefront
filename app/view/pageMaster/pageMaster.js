@@ -39,9 +39,20 @@ angular.module('myApp.pageMaster', ['ngRoute'])
             $scope.comment.date = Date.now();
             $scope.comment.masterId = id;
             $scope.comment.masterName = localStorage.getItem('nameMaster')
-            $scope.comment.rate = $scope.rate;
+
+            $scope.comment.rate = $scope.rate;//oczenka
+            //$scope.comment.amount = $scope.amount;//kol-vo kommentov
+
             $http.post(url3, $scope.comment).success(function (response) {
                console.log(response);
+
+                $http.post($rootScope.url+'getrate', {
+                    id: id,
+                    rate: $scope.pageMaster.rate + $scope.rate,
+                    amount: $scope.pageMaster.amount + 1
+                }).success(function (response) {
+                    console.log(response);
+                })
                 $window.location.reload();
             })
 
@@ -67,25 +78,19 @@ angular.module('myApp.pageMaster', ['ngRoute'])
         $http.post(url2, {id: id}).
             success(function(data){
                 $scope.comments = data;
-                if(data != null) {
-                    for (let x in data) {
-                        $scope.rates.push(Number(data[x].rate));
-                    }
-                    console.log($scope.rates)
-                    $scope.resultOne = $scope.rates.reduce(function (sum, current) {
-                        console.log(sum)
-                        return (sum + current);
-                    });
-                    console.log($scope.resultOne)
-                    $scope.result = ($scope.resultOne / $scope.rates.length).toFixed(1);
-
-                    $http.post($rootScope.url+'getrate', {
-                        id: id,
-                        rate: $scope.result
-                    }).success(function (response) {
-                        console.log(response);
-                    })
-                }
+                //if(data != null) {
+                //    for (let x in data) {
+                //        $scope.rates.push(Number(data[x].rate));
+                //    }
+                //    console.log($scope.rates)
+                //    $scope.resultOne = $scope.rates.reduce(function (sum, current) {
+                //        console.log(sum)
+                //        return (sum + current);
+                //    });
+                //    console.log($scope.resultOne)
+                //    $scope.result = ($scope.resultOne / $scope.rates.length).toFixed(1);
+                //
+                //}
             });
 
 
