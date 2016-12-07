@@ -20,11 +20,11 @@ angular.module('myApp.pageMaster', ['ngRoute'])
 // poluchau avtoservice po id
         var id = localStorage.getItem('idMaster')
         var url = $rootScope.url+'api/masters?id=' + id;
-        //localStorage.clear();
 
         $http.get(url).
             success(function (response) {
             $scope.pageMaster = response;
+                $scope.result = (Number($scope.pageMaster.rate) / Number($scope.pageMaster.amount)).toFixed(1);
             console.log($scope.pageMaster);
         });
 
@@ -41,7 +41,6 @@ angular.module('myApp.pageMaster', ['ngRoute'])
             $scope.comment.masterName = localStorage.getItem('nameMaster')
 
             $scope.comment.rate = $scope.rate;//oczenka
-            //$scope.comment.amount = $scope.amount;//kol-vo kommentov
 
             $http.post(url3, $scope.comment).success(function (response) {
                console.log(response);
@@ -88,7 +87,7 @@ angular.module('myApp.pageMaster', ['ngRoute'])
                 //        return (sum + current);
                 //    });
                 //    console.log($scope.resultOne)
-                //    $scope.result = ($scope.resultOne / $scope.rates.length).toFixed(1);
+
                 //
                 //}
             });
