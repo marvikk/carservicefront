@@ -4,11 +4,11 @@
             <div class="form-group" ng-repeat="mas in pageMaster">
                 <h3 >{{mas.companyName}}</h3>
                 <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/"/>
-                 <span uib-rating style="color: #ffff00" ng-model="result" max="max" read-only="true"></span>
-                 Result: <b>{{result}}</b><br>
+                <span uib-rating style="color: #ffff00" ng-model="mas.rate" max="max" read-only="true"></span>
+                Result: <b>{{mas.rate}}</b> (<b>{{mas.amountComments}}</b>)<br>
                 <p class="form-control-static">Марки машин:{{mas.cars}}</p>
                 <p class="form-control-static">Виды услуг: {{mas.services}}</p>
-                <address>{{mas.chosenPlace.FormattedAddress + ", "+ mas.house}}</address>
+                <address>{{mas.chosenPlace.FormattedAddress}}</address>
                 <button id="telephone" class="glyphicon glyphicon-phone-alt" ng-click="getTelephone(mas.companyTelephone)"> Telephone</button>
             </div>
         </div>
