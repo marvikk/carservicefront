@@ -6,9 +6,9 @@ var pg = require("pg");
 var Sequelize = require("sequelize");
 var Restful = require('new-sequelize-restful');
 var cors = require('cors');
-
+var connection;
 if(!process.env.DATABASE_URL){
-var connection = new Sequelize('carservice2', 'postgres', 'password',//db-name, owner in db, password in db
+connection = new Sequelize('carservice2', 'postgres', 'password',//db-name, owner in db, password in db
     {
         host: 'localhost',
         dialect: 'postgres'
@@ -18,7 +18,7 @@ var connection = new Sequelize('carservice2', 'postgres', 'password',//db-name, 
 //DATABASE_URL: postgresql-tetrahedral-32355
 else if(process.env.DATABASE_URL){
 var match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
-var connection = new Sequelize(match[5], match[1], match[2], {
+connection = new Sequelize(match[5], match[1], match[2], {
     dialect:  'postgres',
     protocol: 'postgres',
     port:     match[4],
@@ -90,7 +90,8 @@ var Master = connection.define('masters', {
     "logo": Sequelize.STRING,
     "categories": Sequelize.JSON(Sequelize.TEXT),
     "rate": Sequelize.FLOAT,
-    "amountComments": Sequelize.NUMBER
+    "rateAll": Sequelize.STRING,
+    "amountComments": Sequelize.STRING
 });
 Master.sync().then(function(){
     console.log('Success');
@@ -281,13 +282,14 @@ app.post('/gettowtruckbyall', function(req, res){
 
 app.post('/getrate', function(req, res){
     Master.update({
-            rate: req.body.rate,
+        rate: req.body.rate,
+        rateAll: req.body.rateAll,
         amountComments: req.body.amount
-        },{where:
-        {id : req.body.id }
-        }).then(function(result){
-            res.json(result);
-        })
+    },{where:
+    {id : req.body.id }
+    }).then(function(result){
+        res.json(result);
+    })
 })
 //app.post('/getmastersbycars', function(req, res){
 //    var car = req.body.cars;
