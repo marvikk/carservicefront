@@ -47,6 +47,7 @@ angular.module('myApp.officeMaster', ['ngRoute'])
                 role: 'master'
             }).success(function(response){
             $scope.authorization = response;
+            console.log(response + " auth response")
         });
 
         $scope.addImg = function(item1){

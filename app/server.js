@@ -54,7 +54,7 @@ var Auth = connection.define('authentic', {
     role: Sequelize.STRING,
     idUser: Sequelize.STRING
 });
-Auth.sync().then(function(){
+Auth.sync({ force: true }).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
@@ -65,7 +65,7 @@ var Client = connection.define('clients', {
     cars: Sequelize.ARRAY(Sequelize.TEXT),
     logo: Sequelize.STRING
 });
-Client.sync().then(function(){
+Client.sync({ force: true }).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
@@ -93,7 +93,7 @@ var Master = connection.define('masters', {
     "rateAll": Sequelize.STRING,
     "amountComments": Sequelize.STRING
 });
-Master.sync().then(function(){
+Master.sync({ force: true }).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
@@ -108,7 +108,7 @@ var Comment = connection.define("comments", {
     "masterName": Sequelize.STRING,
     "rate": Sequelize.STRING
 });
-Comment.sync().then(function(){
+Comment.sync({ force: true }).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
@@ -130,7 +130,7 @@ var Tender = connection.define("tenders", {
     "date": Sequelize.DATE,
     "comment": Sequelize.STRING
 });
-Tender.sync().then(function(){
+Tender.sync({ force: true }).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
@@ -143,7 +143,7 @@ var CommentsTender = connection.define("commentstender", {
     "date": Sequelize.DATE,
     "idTender": Sequelize.STRING
 });
-CommentsTender.sync().then(function(){
+CommentsTender.sync({ force: true }).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
@@ -194,11 +194,12 @@ app.post('/commentstenders', function(req,res){
 });
 
 app.post('/getclientbyid', function(req, res){
-    Auth.findAll({where: {
+    Auth.findOne({where: {
         idUser: req.body.id,
         role: req.body.role
     }}).then(function(result){
         res.json(result);
+        console.log(result)
     })
 
 });
