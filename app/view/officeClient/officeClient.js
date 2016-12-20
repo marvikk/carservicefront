@@ -38,7 +38,8 @@ angular.module('myApp.officeClient', ['ngRoute'])
             {id: idUser,
                 role: 'client'
         }).success(function(response){
-            $scope.authorization.push(response);
+            $scope.authorization=response;
+            console.log($scope.authorization)
         });
 
        

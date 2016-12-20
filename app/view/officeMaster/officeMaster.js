@@ -46,7 +46,7 @@ angular.module('myApp.officeMaster', ['ngRoute'])
             {id: idUser,
                 role: 'master'
             }).success(function(response){
-            $scope.authorization.push(response);
+            $scope.authorization = response;
             console.log(response + " auth response")
         });
 
