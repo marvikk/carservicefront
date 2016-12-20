@@ -93,7 +93,7 @@ var Master = connection.define('masters', {
     "rateAll": Sequelize.STRING,
     "amountComments": Sequelize.STRING
 });
-Master.sync({ force: true }).then(function(){
+Master.sync().then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
