@@ -28,8 +28,8 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
                 $scope.services = data;
             });*/
 
-        var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
-        $http.jsonp(url)
+        var url = $rootScope.url + "api/carmanufacturerapi";
+        $http.get(url)
             .success(function(data){
                 $scope.cars = data;
             })
