@@ -38,7 +38,7 @@ angular.module('myApp.officeClient', ['ngRoute'])
             {id: idUser,
                 role: 'client'
         }).success(function(response){
-            $scope.authorization = response;
+            $scope.authorization.push(response);
         });
 
        
@@ -73,7 +73,7 @@ angular.module('myApp.officeClient', ['ngRoute'])
         $scope.updateClient = function (idAuth) {
             $scope.client.cars = $scope.arrayCarsM;
             $scope.auth.idUser = $rootScope.Id;
-            $http.put($rootScope.url+"clients/" + $rootScope.Id, $scope.client).success(function (response) {
+            $http.put($rootScope.url+"api/clients/" + $rootScope.Id, $scope.client).success(function (response) {
                 console.log($scope.client);
                 $http.put($rootScope.url+"api/authentic/" + idAuth, $scope.auth).success(function (response) {
                     console.log(response);

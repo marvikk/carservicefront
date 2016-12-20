@@ -194,7 +194,7 @@ app.post('/commentstenders', function(req,res){
 });
 
 app.post('/getclientbyid', function(req, res){
-    Auth.findOne({where: {
+    Auth.findAll({where: {
         idUser: req.body.id,
         role: req.body.role
     }}).then(function(result){
