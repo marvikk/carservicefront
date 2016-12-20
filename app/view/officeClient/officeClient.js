@@ -41,18 +41,20 @@ angular.module('myApp.officeClient', ['ngRoute'])
             $scope.authorization = response;
         });
 
-        var url ="http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+       
         var url1 = "";
 
-        $http.jsonp(url)
-          .success(function(data){
-              $scope.cars = data;
-          });
+        var url = $rootScope.url + "api/carmanufacturerapi";
+        $http.get(url)
+            .success(function(data){
+                $scope.cars = data;
+            })
+        
         $scope.myFunc = function(carObj) {
-            url1 ="http://casco.cmios.ru/api" +carObj.url+ "?callback=JSON_CALLBACK";
-            $http.jsonp(url1)
+            url1 =$rootScope.url + "api/carmodelsapi/" +carObj.id;
+            $http.get(url1)
                 .success(function(result){
-                    $scope.marks = result.models;
+                    $scope.marks = result.model.models;
                 });
         };
 

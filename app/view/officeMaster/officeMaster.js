@@ -53,11 +53,10 @@ angular.module('myApp.officeMaster', ['ngRoute'])
             $scope.master.img = item1;
         }
 //add cars
-        var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
-        $http.jsonp(url)
+        var url = $rootScope.url + "api/carmanufacturerapi";
+        $http.get(url)
             .success(function(data){
                 $scope.cars = data;
-                console.log($scope.master)
             })
 
         $scope.addItem = function(item){
