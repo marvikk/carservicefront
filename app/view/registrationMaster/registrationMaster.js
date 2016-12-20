@@ -21,12 +21,13 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         $scope.masterAuth = {};
 
 //add cars
-        var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
-        $http.jsonp(url)
-        .success(function(data){
-                $scope.cars = data;
-                console.log($scope.master)
-            });
+       var url = $rootScope.url + "api/carmanufacturerapi";
+       $http.get(url)
+          .success(function(data){
+              $scope.cars = data;
+                console.log($scope.client);
+
+          });
 
        $scope.addItem = function(item){
            $scope.arrayCarsM.push(item);
