@@ -181,12 +181,38 @@ function sendMail(email, password){
     });
 }
 
-
 app.post('/sendmessages', function(req, res){
     var email = req.body.email;
     var pass = req.body.pass;
     sendMail(email, pass);
 })
+
+//cars-models api
+var CarManufacturerApi = connection.define("carmanufacturerapi",{
+    "id": {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    "title": Sequelize.STRING
+});
+CarManufacturerApi.sync().then(function(){
+    console.log('Success');
+}).catch(function(err){
+    console.log('success error '+ err);
+});
+
+var CarModelsApi = connection.define("carmodelsapi",{
+    "id": {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    "model": Sequelize.JSON(Sequelize.TEXT)
+});
+CarModelsApi.sync().then(function(){
+    console.log('Success');
+}).catch(function(err){
+    console.log('success error '+ err);
+});
 
 app.post('/getcomments', function(req, res){
     //console.log(req.body.id);
