@@ -6,6 +6,8 @@ var pg = require("pg");
 var Sequelize = require("sequelize");
 var Restful = require('new-sequelize-restful');
 var cors = require('cors');
+var nodemailer = require('nodemailer');
+
 var connection;
 if(!process.env.DATABASE_URL){
 connection = new Sequelize('carservice2', 'postgres', 'password',//db-name, owner in db, password in db
@@ -29,11 +31,11 @@ connection = new Sequelize(match[5], match[1], match[2], {
     }
 });
 }
-connection.authenticate().then(function(){
-    console.log('connect to db');
-}).catch(function(err){
-    console.log('connection error '+ err);
-});
+//connection.authenticate().then(function(){
+//    console.log('connect to db');
+//}).catch(function(err){
+//    console.log('connection error '+ err);
+//});
 var app = express();
 
 app.use('/', express.static(__dirname));
@@ -41,11 +43,11 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use(bodyParser.json());
 app.use(cors());
 app.all(/\/api\//, (new Restful(connection)).route());
+
 app.get("/", function(req, res){
     res.sendFile('index.html', {root: __dirname});
     console.log('strawberry banana and hello')
 })
-
 
 //model auth
 var Auth = connection.define('authentic', {
@@ -86,7 +88,7 @@ var Master = connection.define('masters', {
     "managerTelephone": Sequelize.STRING,
     "directorName": Sequelize.STRING,
     "cars": Sequelize.ARRAY(Sequelize.TEXT),
-    "services": Sequelize.ARRAY(Sequelize.TEXT),
+    "services": Sequelize.JSON(Sequelize.TEXT),
     "logo": Sequelize.STRING,
     "categories": Sequelize.JSON(Sequelize.TEXT),
     "rate": Sequelize.FLOAT,
@@ -125,7 +127,7 @@ var Tender = connection.define("tenders", {
     "bus": Sequelize.BOOLEAN,
     "moped": Sequelize.BOOLEAN,
     "car": Sequelize.STRING,
-    "service": Sequelize.STRING,
+    "service": Sequelize.JSON(Sequelize.TEXT),
     "sum": Sequelize.STRING,
     "date": Sequelize.DATE,
     "comment": Sequelize.STRING
@@ -148,6 +150,45 @@ CommentsTender.sync().then(function(){
 }).catch(function(err){
     console.log('success error '+ err);
 });
+
+
+// create reusable transporter object using the default SMTP transport
+var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    host: 'smtp.gmail.com',
+    secure: true, // use SSL
+    auth: {
+        user: 'EmailCarsService@gmail.com',//pomeniat v nasroykah gmail -dostup dla prilozheniy
+        pass: 'PasswordCarsService'
+    }
+});
+
+// setup e-mail data with unicode symbols
+function sendMail(email, password){
+    var mailOptions = {
+        from: '"carsService" <beta.qween@gmail.com>', // sender address
+        to: email, // list of receivers
+        subject: 'Authentic', // Subject line
+        text: 'Your password', // plaintext body
+        html: '<b>Your password is ' + password +'</b>' // html body
+    };
+
+// send mail with defined transport object
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            return console.log(error);
+        }
+        console.log('Message sent: ' + info.response);
+    });
+}
+
+
+app.post('/sendmessages', function(req, res){
+    var email = req.body.email;
+    var pass = req.body.pass;
+    sendMail(email, pass);
+})
+
 //cars-models api
 var CarManufacturerApi = connection.define("carmanufacturerapi",{
     "id": {
@@ -210,14 +251,16 @@ app.post('/getmechanicsbyall', function(req, res){
     var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-   // var key = Master.getDataValue(category);
+    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {$contains :service},
+        services: {
+            [vid]: {
+                [service]: "true"}},
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"
-    },
+        },
         mechanics: req.body.mechanics
     }}).then(function(result){
         res.json(result);
@@ -229,10 +272,12 @@ app.post('/getmountingbyall', function(req, res){
     var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-    // var key = Master.getDataValue(category);
+    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {$contains :service},
+        services: {
+            [vid]: {
+                [service]: "true"}},
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"
@@ -248,10 +293,12 @@ app.post('/getcarwashbyall', function(req, res){
     var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-    // var key = Master.getDataValue(category);
+    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {$contains :service},
+        services: {
+            [vid]: {
+                [service]: "true"}},
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"
@@ -267,10 +314,12 @@ app.post('/gettowtruckbyall', function(req, res){
     var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-    // var key = Master.getDataValue(category);
+    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {$contains :service},
+        services: {
+            [vid]: {
+                [service]: "true"}},
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"

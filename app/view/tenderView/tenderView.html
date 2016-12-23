@@ -64,12 +64,26 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="exampleInputServices">
-                            Services
-                        </label>
-                        <select class="form-control" id="exampleInputServices" ng-model="tender.service">
-                            <option ng-repeat="serv in services">{{serv.service}}</option>
-                        </select>
+                        <label>Вид работ Автосервисoв</label><br>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-block dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Services<span ng-show="toggleService">: {{checkedService}}</span>
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <ul ng-repeat="serv in services">
+                                    <li >{{serv.service}}
+                                        <ul ng-repeat="(key, value) in serv.vid">
+                                            <li class="list-unstyled">
+                                                <input type="checkbox" name="opt" ng-model="checkedService" ng-checked="checkedService.indexOf(value) != -1"
+                                                       ng-click="toggleService(value)">
+                                                {{value}}
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="inputGroupSuccess3">
@@ -104,52 +118,44 @@
                     <h2 class="text-center">Tenders</h2><br>
                     <ol class="list-unstyled">
                         <li ng-repeat="serv in tenders">
-                    <table class="table table-bordered table-striped">
-                      <tr>
-                          <td>
-                              <div class="row">
-                                  <div class="col-md-8">
-                                      <div class="text-left">
-                                      <a ng-click="getPageTender(serv.id)" class="href-responsive">{{serv.service}} <p>{{serv.car}}</p></a>
-                                          <p>{{serv.chosenPlace.FormattedAddress}}</p>
-                                          </div>
-                                  </div>
-                                  <div class="col-md-4">
-                                      <div class="text-right">
-                                      <h4>{{serv.sum}}₪</h4>
-                                          </div>
-                                  </div>
-                              </div>
-                          </td>
-                      </tr>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                <p>{{serv.comment}}</p>
-                                    <footer class="text-right"><cite title="Author Title">{{serv.userName}}</cite></footer>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-group">
-                                    <p>{{serv.date|date:'yyyy-MM-dd'}}</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
+                            <table class="table table-bordered table-striped">
+                                <tr>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div class="text-left">
+                                                    <a ng-click="getPageTender(serv.id)" class="href-responsive">{{serv.service}} <p>{{serv.car}}</p></a>
+                                                    <p>{{serv.chosenPlace.FormattedAddress}}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="text-right">
+                                                    <h4>{{serv.sum}}₪</h4>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <p>{{serv.comment}}</p>
+                                            <footer class="text-right"><cite title="Author Title">{{serv.userName}}</cite></footer>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <p>{{serv.date|date:'yyyy-MM-dd'}}</p>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
                         </li>
-                        </ol>
+                    </ol>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-

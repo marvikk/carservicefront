@@ -6,8 +6,25 @@
                 <img alt="Bootstrap Image Preview" src="http://lorempixel.com/140/140/"/>
                 <span uib-rating style="color: #ffff00" ng-model="mas.rate" max="max" read-only="true"></span>
                 Result: <b>{{mas.rate}}</b> (<b>{{mas.amountComments}}</b>)<br>
-                <p class="form-control-static">Марки машин:{{mas.cars}}</p>
-                <p class="form-control-static">Виды услуг: {{mas.services}}</p>
+                <p class="form-control-static">Categories:
+                <ul>
+                    <li ng-repeat="(key, value) in mas.categories track by $index">{{key}}</li>
+                </ul>
+                </p>
+                <p class="form-control-static">Марки машин:
+                <ul>
+                    <li ng-repeat=" car in mas.cars">{{car}}</li>
+                </ul>
+                </p>
+                <p class="form-control-static">Виды услуг:
+                <ul>
+                    <li ng-repeat="(key, value) in vidServices track by $index">{{key}}
+                        <ul>
+                            <li>{{value}}</li>
+                        </ul>
+                    </li>
+                </ul>
+                </p>
                 <address>{{mas.chosenPlace.FormattedAddress}}</address>
                 <button id="telephone" class="glyphicon glyphicon-phone-alt" ng-click="getTelephone(mas.companyTelephone)"> Telephone</button>
             </div>
@@ -23,11 +40,11 @@
                     <li ng-repeat="comm in comments">
                         <div class="form-group">
                             <blockquote>
-                               <span class="glyphicon glyphicon-user"> {{comm.userName}}</span>
+                                <span class="glyphicon glyphicon-user"> {{comm.userName}}</span>
                                 <p>{{comm.date|date:'yyyy-MM-dd HH:mm:ss'}}</p>
                             </blockquote>
                             <h4>{{comm.masterName}}</h4>
-                             <span uib-rating style="color: #ffff00" ng-model="comm.rate" max="max" read-only="true"></span>
+                            <span uib-rating style="color: #ffff00" ng-model="comm.rate" max="max" read-only="true"></span>
                             Rate: <b>{{comm.rate}}</b><br>
                             <p>{{comm.comment}}</p>
                         </div>
@@ -42,7 +59,7 @@
             <div class="form-group">
                 <label for="comment">{{Name}}, write your comment</label><br>
                 <span uib-rating style="color: #ffff00" ng-model="rate" max="max" read-only="isReadonly"
-                ng-click="hoveringOver(rate)">
+                      ng-click="hoveringOver(rate)">
                 </span>
                 Rate: <b ng-disabled="isReadonly">{{rate}}</b>
                 <textarea class="form-control" rows="5" id="comment" ng-model="comment.comment"></textarea>
