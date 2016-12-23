@@ -45,7 +45,9 @@ angular.module('myApp', [
             $rootScope.Id = "";
             $rootScope.Person = "";
 
-        }
+            $location.path("/viewLogin");
+
+        };
         $scope.getOffice = function () {
 
             if($rootScope.Person == "client"){
