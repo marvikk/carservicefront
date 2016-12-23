@@ -151,6 +151,7 @@ CommentsTender.sync().then(function(){
     console.log('success error '+ err);
 });
 
+
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -188,6 +189,34 @@ app.post('/sendmessages', function(req, res){
     sendMail(email, pass);
 })
 
+//cars-models api
+var CarManufacturerApi = connection.define("carmanufacturerapi",{
+    "id": {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    "title": Sequelize.STRING
+});
+CarManufacturerApi.sync().then(function(){
+    console.log('Success');
+}).catch(function(err){
+    console.log('success error '+ err);
+});
+
+var CarModelsApi = connection.define("carmodelsapi",{
+    "id": {
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    "model": Sequelize.JSON(Sequelize.TEXT)
+});
+CarModelsApi.sync().then(function(){
+    console.log('Success');
+}).catch(function(err){
+    console.log('success error '+ err);
+});
+
+
 app.post('/getcomments', function(req, res){
     //console.log(req.body.id);
     Comment.findAll({where: {
@@ -211,6 +240,7 @@ app.post('/getclientbyid', function(req, res){
         role: req.body.role
     }}).then(function(result){
         res.json(result);
+        console.log(result)
     })
 
 });
@@ -333,5 +363,5 @@ app.post('/getrate', function(req, res){
 //})
 
 app.listen(process.env.PORT||3001, function(){
-    console.log("listen on server 5000");
+    console.log("listen on server 3001");
 })
