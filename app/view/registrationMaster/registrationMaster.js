@@ -16,6 +16,7 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         $scope.cars = [];
         $scope.arrayCarsM = [];
         $scope.services = listOfServices;
+        console.log(listOfServices);
         $scope.masterAuth = {};
 
 
@@ -34,12 +35,12 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         }
         $scope.removeItem = function (x) {
             $scope.arrayCarsM.splice(x, 1);
-        };
+        }
 
 //addImg
         $scope.addImg = function (item1) {
             $scope.master.logo = item1;
-        };
+        }
 
         function str_rand() {
             var result = '';
@@ -137,3 +138,9 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
             }
         };
     })
+//{   "Кузовные работы":{"Аэрография":true,"Полировка":true},
+//    "Диагностика и ремонт двигателя":{"Ремонт двигателя":true},
+//    "КПП":{"Ремонт МКПП":true},
+//    "Электрооборудование":{"Ремонт отопительной системы":true},
+//    "Выхлопная система":{"Ремонт катализаторов":true,"Замена глушителей":true}
+//}
