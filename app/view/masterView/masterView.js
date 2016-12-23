@@ -28,7 +28,6 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         //        $scope.cars = data;
         //    })
 
-        //add cars
         var url = $rootScope.url + "api/carmanufacturerapi";
         $http.get(url)
             .success(function(data){

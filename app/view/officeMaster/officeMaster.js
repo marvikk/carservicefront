@@ -43,6 +43,7 @@ angular.module('myApp.officeMaster', ['ngRoute'])
             }).success(function(response){
                 $scope.authorization = response;
             });
+           
 
         $scope.addImg = function(item1){
             $scope.master.img = item1;
@@ -52,9 +53,9 @@ angular.module('myApp.officeMaster', ['ngRoute'])
         $http.get(url)
             .success(function(data){
                 $scope.cars = data;
-                console.log($scope.master);
-
+                console.log($scope.master)
             });
+  
         $scope.addItem = function(item){
             $scope.arrayCarsM.push(item.title);
             $scope.master.cars = $scope.arrayCarsM;

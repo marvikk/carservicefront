@@ -13,7 +13,15 @@ angular.module('myApp.firstPage', ['ngRoute'])
     }])
 
     .controller('FirstPageCtrl', function($scope, $http, $rootScope, $location, $window) {
-
+    
+    
+///////////
+    
+    
+    
+    
+    
+//////////
         var mapOptions = {
             zoom: 7,
             center: new google.maps.LatLng(31.3000, 34.4500),

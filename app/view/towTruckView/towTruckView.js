@@ -20,12 +20,6 @@ angular.module('myApp.towTruckView', ['ngRoute'])
         $scope.checkedService = "Кузовной ремонт";
         $scope.checkedCategories = "passCar";
 
-        //var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
-        //$http.jsonp(url)
-        //    .success(function(data){
-        //        $scope.cars = data;
-        //    })
-        //add cars
         var url = $rootScope.url + "api/carmanufacturerapi";
         $http.get(url)
             .success(function(data){

@@ -26,7 +26,7 @@ angular.module('myApp.carWashView', ['ngRoute'])
         //        $scope.cars = data;
         //    })
 
-        //add cars
+  //add cars
         var url = $rootScope.url + "api/carmanufacturerapi";
         $http.get(url)
             .success(function(data){

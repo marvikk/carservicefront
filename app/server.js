@@ -151,6 +151,7 @@ CommentsTender.sync().then(function(){
     console.log('success error '+ err);
 });
 
+
 // create reusable transporter object using the default SMTP transport
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
@@ -237,6 +238,7 @@ app.post('/getclientbyid', function(req, res){
         role: req.body.role
     }}).then(function(result){
         res.json(result);
+        console.log(result)
     })
 
 });
@@ -359,5 +361,5 @@ app.post('/getrate', function(req, res){
 //})
 
 app.listen(process.env.PORT||3001, function(){
-    console.log("listen on server 5000");
+    console.log("listen on server 3001");
 })
