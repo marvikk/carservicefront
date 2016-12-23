@@ -17,25 +17,25 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         $scope.services = listOfServices;
         $scope.cars = [];
         $scope.checkedCars = [];
-        $scope.checkedService = [];
+        $scope.checkedService = "Кузовной ремонт";
         $scope.checkedCategories = "passCar";
 
 
 
-      /*  var url1 = "http://localhost:3000/services";
-        $http.get(url1)
-            .success(function(data){
-                $scope.services = data;
-            });*/
+        //var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+        //$http.jsonp(url)
+        //    .success(function(data){
+        //        $scope.cars = data;
+        //    })
 
-        var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
-        $http.jsonp(url)
+        //add cars
+        var url = $rootScope.url + "api/carmanufacturerapi";
+        $http.get(url)
             .success(function(data){
                 $scope.cars = data;
-            })
+            });
 
-
-        $http.get($rootScope.url+'api/masters').success(function (response) {
+        $http.get($rootScope.url +'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].mechanics === true){
                     $scope.mechanics.push(response[x]);
@@ -66,37 +66,24 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
             } else {
                 $scope.checkedCars.splice($scope.checkedCars.indexOf(car), 1);
             }
-            //$http.post($rootScope.url+'getmastersbycars', {
-            //    cars: $scope.checkedCars,
-            //    mechanics: true
-            //}).success(function(result){
-            //    $scope.mechanics = result;
-            //    console.log(result)
-            //})
         };
         $scope.clearCars = function(){
             $scope.checkedCars = [];
         }
 
         //dobaliau service v array
-        $scope.toggleService = function(service){
+        $scope.toggleService = function(service, serviceVid){
+            $scope.vid = serviceVid;
             if($scope.checkedService.indexOf(service) === -1){
-                $scope.checkedService.push(service);
+                $scope.checkedService=(service);
             }else{
                 $scope.checkedService.splice($scope.checkedService.indexOf(service), 1);
             }
             console.log($scope.checkedService)
-            //$http.post($rootScope.url+'getmastersbyservice', {
-            //    services: $scope.checkedService,
-            //    mechanics: true
-            //}).success(function(result){
-            //    $scope.mechanics = result;
-            //    console.log(result)
-            //})
         };
 
         $scope.clearService = function(){
-            $scope.checkedService = [];
+            $scope.checkedService = "Кузовной ремонт";
         };
 
         $scope.clearPlace = function(){
@@ -104,8 +91,9 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         }
 
         $scope.getFilter = function() {
-            $http.post($rootScope.url+'getmechanicsbyall', {
+            $http.post($rootScope.url+ "getmechanicsbyall", {
                 services: $scope.checkedService,
+                vid: $scope.vid,
                 cars: $scope.checkedCars,
                 chosenPlace: $scope.chosen || {
                     FormattedAddress: "Israel",
@@ -119,6 +107,8 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
                 console.log(result)
             })
         };
+
+
 
 
         // dla reytinga
@@ -139,3 +129,4 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         }
 
     });
+

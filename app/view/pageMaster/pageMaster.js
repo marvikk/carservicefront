@@ -16,10 +16,12 @@ angular.module('myApp.pageMaster', ['ngRoute'])
     .controller('PageMasterCtrl', function ($scope, $http, $rootScope, $window) {
 
         $scope.pageMaster = [];
+        $scope.service = [];
+        $scope.vidServices ={};
 
 // poluchau avtoservice po id
         var id = localStorage.getItem('idMaster')
-        var url = $rootScope.url+'api/masters?id=' + id;
+        var url = $rootScope.url + 'api/masters?id=' + id;
 
         $http.get(url).
             success(function (response) {
@@ -27,9 +29,24 @@ angular.module('myApp.pageMaster', ['ngRoute'])
                 $scope.pageMaster = response;
                 $scope.rateAllResponse = response[0].rateAll;
                 $scope.amountResponse = response[0].amountComments;
+                $scope.services = response[0].services;
+                //poluchau services
+
+                for(var key in response[0].services){
+                    for(var value in response[0].services[key]){
+                        if ($scope.vidServices[key] != undefined) {
+                            $scope.vidServices[key] += ", " + value;
+                        } else {
+                            $scope.vidServices[key] = value;
+                        }
+                    }
+                    console.log($scope.vidServices)
+                }
             });
 
-        //sohraniau reyting
+
+
+//sohraniau reyting
         $scope.max = 5;
         $scope.isReadonly = false;
 
@@ -38,11 +55,11 @@ angular.module('myApp.pageMaster', ['ngRoute'])
             $scope.isReadonly = true;
         };
 
+
 //sohraniau comment
         $scope.comment = {};
 
-        var url3 = $rootScope.url+'api/comments';
-
+        var url3 = $rootScope.url + 'api/comments';
         $scope.saveComment = function(){
             $scope.comment.userName = $rootScope.Name;
             $scope.comment.userId = $rootScope.Id;
@@ -50,6 +67,7 @@ angular.module('myApp.pageMaster', ['ngRoute'])
             $scope.comment.masterId = id;
             $scope.comment.masterName = localStorage.getItem('nameMaster')
             $scope.comment.rate = $scope.rate;//oczenka
+
 //sohraniau rate in DB
             $http.post(url3, $scope.comment).success(function (response) {
                 console.log(response);
@@ -61,7 +79,7 @@ angular.module('myApp.pageMaster', ['ngRoute'])
                     amount = 1;
                 }
                 var rate = rateAll/ amount;
-                $http.post( $rootScope.url + 'getrate', {
+                $http.post($rootScope.url +'getrate', {
                     id: id,
                     rate: rate,
                     rateAll: rateAll,
@@ -74,11 +92,12 @@ angular.module('myApp.pageMaster', ['ngRoute'])
 
         }
 
+
         // poluchau kommenty
         // TODO ...
         $scope.comments = [];
         $scope.rates = [];
-        var url2 = $rootScope.url+"getcomments";
+        var url2 = $rootScope.url + "getcomments";
         console.log(id)
         $http.post(url2, {id: id}).
             success(function(data){

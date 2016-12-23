@@ -3,13 +3,13 @@
 angular.module('myApp.registrationClient', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-      $routeProvider.when('/registrationClient', {
-        templateUrl: 'view/registrationClient/registrationClient.html',
-        controller: 'RegistrationClientCtrl'
-      });
+        $routeProvider.when('/registrationClient', {
+            templateUrl: 'view/registrationClient/registrationClient.html',
+            controller: 'RegistrationClientCtrl'
+        });
     }])
 
-    .controller('RegistrationClientCtrl', function($scope, $http, $location, $rootScope) {
+    .controller('RegistrationClientCtrl', function($scope, $http, $location) {
         $scope.cars = [];
         $scope.marks = {};
         $scope.client = {};
@@ -17,34 +17,63 @@ angular.module('myApp.registrationClient', ['ngRoute'])
 
         $scope.arrayCarsM =[];
 
-        var url ="http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+        //var url ="http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+        //var url1 = "";
+
+        //$http.jsonp(url)
+        //  .success(function(data){
+        //      $scope.cars = data;
+        //        console.log($scope.client);
+        //
+        //  });
+        //$scope.myFunc = function(carObj) {
+        //    url1 ="http://casco.cmios.ru/api" +carObj.url+ "?callback=JSON_CALLBACK";
+        //    $http.jsonp(url1)
+        //        .success(function(result){
+        //            $scope.marks = result.models;
+        //        });
+        //};
+
+        var url = $rootScope.url + "api/carmanufacturerapi";
         var url1 = "";
 
-        $http.jsonp(url)
-          .success(function(data){
-              $scope.cars = data;
+        $http.get(url)
+            .success(function(data){
+                $scope.cars = data;
                 console.log($scope.client);
 
-          });
+            });
         $scope.myFunc = function(carObj) {
-            url1 ="http://casco.cmios.ru/api" +carObj.url+ "?callback=JSON_CALLBACK";
-            $http.jsonp(url1)
+            url1 =$rootScope.url + "api/carmodelsapi/" +carObj.id;
+            $http.get(url1)
                 .success(function(result){
-                    $scope.marks = result.models;
+                    $scope.marks = result.model.models;
                 });
         };
+
         $scope.addItem = function(item, item1, item2, item3){
             $scope.arrayCarsM.push(item.title + ", " + item1 + ", " + item2 + ", " + item3);
-             $scope.client.cars = $scope.arrayCarsM;
+            $scope.client.cars = $scope.arrayCarsM;
         }
         $scope.removeItem = function(x){
             $scope.arrayCarsM.splice(x, 1);
         }
 
+        function str_rand() {
+            var result = '';
+            var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+            var max_position = words.length - 1;
+            for(var i = 0; i < 8; ++i ) {
+                var position = Math.floor ( Math.random() * max_position );
+                result = result + words.substring(position, position + 1);
+            }
+            return result;
+        }
+
         $scope.addClient = function () {
-            var url1 = $rootScope.url+"api/authentic";
-            var url = $rootScope.url+"api/clients";
-            $scope.auth.password = "12345";
+            var url1 = $rootScope.url + "api/authentic";
+            var url = $rootScope.url + "api/clients";
+            $scope.auth.password = str_rand();
             $scope.auth.role = "client";
 
             $http.post(url, $scope.client).success(function (response) {
@@ -52,7 +81,13 @@ angular.module('myApp.registrationClient', ['ngRoute'])
                 console.log(response.id);
                 $http.post(url1, $scope.auth).success(function (response) {
                     // console.log(response);
+                    $http.post($rootScope.url + "sendmessages",
+                        {
+                            email: response.email,
+                            pass: response.password
+                        }).success(function(answer){
 
+                        })
                 });
             });
 
