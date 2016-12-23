@@ -3,10 +3,10 @@
 angular.module('myApp.officeClient', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
-      $routeProvider.when('/officeClient', {
-        templateUrl: 'view/officeClient/officeClient.html',
-        controller: 'OfficeClientCtrl'
-      });
+        $routeProvider.when('/officeClient', {
+            templateUrl: 'view/officeClient/officeClient.html',
+            controller: 'OfficeClientCtrl'
+        });
     }])
 
     .controller('OfficeClientCtrl', function($scope, $http, $location, $rootScope) {
@@ -20,10 +20,10 @@ angular.module('myApp.officeClient', ['ngRoute'])
         $scope.client = {};
         $scope.auth = {};
 
-        var urlC = $rootScope.url+'api/clients?id=' + $rootScope.Id;
+        var urlC = $rootScope.url + "api/clients?id=" + $rootScope.Id;
         $http.get(urlC).success(function(response){
             $scope.user = response;
-           // console.log(response)
+            // console.log(response)
             //put all cars from users in arrCars
             for(var y in response){
                 if(response[y].cars != undefined) {
@@ -32,29 +32,46 @@ angular.module('myApp.officeClient', ['ngRoute'])
                 }
             }
         });
-        var urlA = $rootScope.url+'getclientbyid';
+        var urlA = $rootScope.url + "getclientbyid";
         var idUser =$rootScope.Id;
         $http.post(urlA,
             {id: idUser,
                 role: 'client'
-        }).success(function(response){
-            $scope.authorization = response;
-        });
+            }).success(function(response){
+                $scope.authorization = response;
+            });
 
-        var url ="http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+        //var url ="http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+        //var url1 = "";
+
+        //$http.jsonp(url)
+        //  .success(function(data){
+        //      $scope.cars = data;
+        //  });
+        //$scope.myFunc = function(carObj) {
+        //    url1 ="http://casco.cmios.ru/api" +carObj.url+ "?callback=JSON_CALLBACK";
+        //    $http.jsonp(url1)
+        //        .success(function(result){
+        //            $scope.marks = result.models;
+        //        });
+        //};
+
+        var url = $rootScope.url + "api/carmanufacturerapi";
         var url1 = "";
 
-        $http.jsonp(url)
-          .success(function(data){
-              $scope.cars = data;
-          });
+        $http.get(url)
+            .success(function(data){
+                $scope.cars = data;
+            });
         $scope.myFunc = function(carObj) {
-            url1 ="http://casco.cmios.ru/api" +carObj.url+ "?callback=JSON_CALLBACK";
-            $http.jsonp(url1)
+            url1 = $rootScope.url + "api/carmodelsapi/" +carObj.id;
+            $http.get(url1)
                 .success(function(result){
-                    $scope.marks = result.models;
+                    $scope.marks = result.model.models;
                 });
         };
+
+
 
         $scope.addItem = function(item, item1, item2, item3){
             $scope.arrayCarsM.push(item.title + ", " + item1 + ", " + item2 + ", " + item3);
@@ -71,9 +88,9 @@ angular.module('myApp.officeClient', ['ngRoute'])
         $scope.updateClient = function (idAuth) {
             $scope.client.cars = $scope.arrayCarsM;
             $scope.auth.idUser = $rootScope.Id;
-            $http.put($rootScope.url+"clients/" + $rootScope.Id, $scope.client).success(function (response) {
+            $http.put($rootScope.url + "api/clients/" + $rootScope.Id, $scope.client).success(function (response) {
                 console.log($scope.client);
-                $http.put($rootScope.url+"api/authentic/" + idAuth, $scope.auth).success(function (response) {
+                $http.put($rootScope.url + "api/authentic/" + idAuth, $scope.auth).success(function (response) {
                     console.log(response);
 
                 });

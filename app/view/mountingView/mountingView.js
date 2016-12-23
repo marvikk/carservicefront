@@ -17,22 +17,24 @@ angular.module('myApp.mountingView', ['ngRoute'])
         $scope.services = listOfServices;
         $scope.cars = [];
         $scope.checkedCars = [];
-        $scope.checkedService = [];
+        $scope.checkedService = "Кузовной ремонт";
         $scope.checkedCategories = "passCar";
 
-        /*var url1 = "http://localhost:3000/services";
-        $http.get(url1)
-            .success(function(data){
-                $scope.services = data;
-            });*/
 
-        var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
-        $http.jsonp(url)
+
+        //var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+        //$http.jsonp(url)
+        //    .success(function(data){
+        //        $scope.cars = data;
+        //    })
+        //add cars
+        var url = $rootScope.url + "api/carmanufacturerapi";
+        $http.get(url)
             .success(function(data){
                 $scope.cars = data;
-            })
+            });
 
-        $http.get($rootScope.url+'api/masters').success(function (response) {
+        $http.get($rootScope.url + 'api/masters').success(function (response) {
             for(var x in response){
                 if(response[x].mounting === true){
                     $scope.mounting.push(response[x]);
@@ -69,25 +71,28 @@ angular.module('myApp.mountingView', ['ngRoute'])
         }
 
         //dobaliau service v array
-        $scope.toggleService = function(service){
+        $scope.toggleService = function(service, serviceVid){
+            $scope.vid = serviceVid;
             if($scope.checkedService.indexOf(service) === -1){
-                $scope.checkedService.push(service);
+                $scope.checkedService=(service);
             }else{
                 $scope.checkedService.splice($scope.checkedService.indexOf(service), 1);
             }
             console.log($scope.checkedService)
         };
+
         $scope.clearService = function(){
-            $scope.checkedService = [];
-        }
+            $scope.checkedService = "Кузовной ремонт";
+        };
 
         $scope.clearPlace = function(){
             $scope.chosen = "";
         }
 
         $scope.getFilter = function() {
-            $http.post($rootScope.url+'getmountingbyall', {
+            $http.post($rootScope.url + 'getmountingbyall', {
                 services: $scope.checkedService,
+                vid: $scope.vid,
                 cars: $scope.checkedCars,
                 chosenPlace: $scope.chosen || {
                     FormattedAddress: "Israel",
