@@ -16,7 +16,6 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         $scope.cars = [];
         $scope.arrayCarsM = [];
         $scope.services = listOfServices;
-        console.log(listOfServices);
         $scope.masterAuth = {};
 
 
@@ -35,12 +34,12 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         }
         $scope.removeItem = function (x) {
             $scope.arrayCarsM.splice(x, 1);
-        }
+        };
 
 //addImg
         $scope.addImg = function (item1) {
             $scope.master.logo = item1;
-        }
+        };
 
         function str_rand() {
             var result = '';
