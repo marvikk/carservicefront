@@ -2,80 +2,70 @@
 
 angular.module('myApp.registrationMaster', ['ngRoute'])
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/registrationMaster', {
-    templateUrl: 'view/registrationMaster/registrationMaster.html',
-    controller: 'RegistrationMasterCtrl'
-  });
-}])
+    .config(['$routeProvider', function($routeProvider) {
+        $routeProvider.when('/registrationMaster', {
+            templateUrl: 'view/registrationMaster/registrationMaster.html',
+            controller: 'RegistrationMasterCtrl'
+        });
+    }])
 
 
-.controller('RegistrationMasterCtrl', function($scope, $http, $location, $rootScope) {
+    .controller('RegistrationMasterCtrl', function($scope, $http, $location) {
         $scope.gPlace;
         $scope.master = {};
         $scope.cars = [];
         $scope.arrayCarsM = [];
         $scope.services = listOfServices;
-    console.log(listOfServices);
-        $scope.arrayService = [];
+        console.log(listOfServices);
         $scope.masterAuth = {};
 
-//add cars
-        var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
-        $http.jsonp(url)
-        .success(function(data){
+////add cars
+//        var url = "http://casco.cmios.ru/api/cars?callback=JSON_CALLBACK";
+//        $http.jsonp(url)
+//        .success(function(data){
+//                $scope.cars = data;
+//                console.log($scope.master)
+//            });
+
+        //add cars
+        var url = $rootScope.url + "api/carmanufacturerapi";
+        $http.get(url)
+            .success(function(data){
                 $scope.cars = data;
-                console.log($scope.master)
+                console.log($scope.master);
+
             });
 
-       $scope.addItem = function(item){
-           $scope.arrayCarsM.push(item);
-           $scope.master.cars = $scope.arrayCarsM;
-       }
-         $scope.removeItem = function(x){
+        $scope.addItem = function(item){
+            $scope.arrayCarsM.push(item);
+            $scope.master.cars = $scope.arrayCarsM;
+        }
+        $scope.removeItem = function(x){
             $scope.arrayCarsM.splice(x, 1);
         }
-//add Services
-        /*var url1 = "http://localhost:3000/services";
-        $http.get(url1)
-            .success(function(data){
-                $scope.services = data;
-            })*/
 
-        $scope.addService = function(item){
-            $scope.arrayService.push(item);
-            $scope.master.services = $scope.arrayService;
-        }
-        $scope.removeService = function(x){
-            $scope.arrayService.splice(x, 1);
-        }
 //addImg
         $scope.addImg = function(item1){
             $scope.master.logo = item1;
         }
-//add Categories
-
-      //TODO
-
-
 
 
         $scope.masterAuth.password = "54321";
         $scope.masterAuth.role = "master";
 
-         $scope.addMaster = function() {
-             var url4 = $rootScope.url+"api/authentic";
-             var url3 = $rootScope.url+"api/masters";
-             $http.post(url3, $scope.master).success(function (response) {
-                 $scope.masterAuth.idUser = response.id;
-                 $http.post(url4, $scope.masterAuth).success(function (response) {
-                 });
-             });
+        $scope.addMaster = function() {
+            var url4 = $rootScope.url + "api/authentic";
+            var url3 = $rootScope.url + "api/masters";
+            $http.post(url3, $scope.master).success(function (response) {
+                $scope.masterAuth.idUser = response.id;
+                $http.post(url4, $scope.masterAuth).success(function (response) {
+                });
+            });
 
-             $location.path("/viewLogin");
-         };
+            $location.path("/viewLogin");
+        };
 
-})
+    })
     .directive('googleplace', function() {
         var componentForm = {
             premise: 'long_name',
@@ -101,7 +91,7 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         return {
             require: 'ngModel',
             link: function(scope, element, attrs, model) {
-              //  alert('dir');
+                //  alert('dir');
                 var options = {
                     types: [],
                     componentRestrictions: {country: 'il'}
@@ -137,3 +127,4 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
             }
         };
     })
+
