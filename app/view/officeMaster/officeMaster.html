@@ -122,7 +122,7 @@
                                 <p class="form-control" aria-label="...">М - мопеды</p>
                             </div><!-- /input-group -->
                         </div><!-- /.col-lg-3 -->
-        </td>
+                    </td>
                 </tr>
                 <tr ng-repeat="one in masters">
                     <td>Your cars</td>
@@ -144,13 +144,26 @@
                     <td>Services</td>
                     <td>
                         <div class="form-inline">
-                        <select class="form-control" id="exampleInputServices" ng-model="listServices">
-                            <option ng-repeat="serv in services">{{serv.service}}</option>
-                        </select>
-                            <input type="button" class="btn btn-default" ng-click="addService(listServices)" value="add">
+                            <ul class="list-unstyled" ng-repeat="serv in services">
+                                <li ng-model="master.services[serv.service]"
+                                    ng-init="master.services[serv.service] = one.services[serv.service]">
+                                    {{serv.service}}
+                                    <ul ng-repeat="s in serv.vid">
+                                        <li class="list-unstyled">
+                                            <input type="checkbox" ng-model="master.services[serv.service][s]" ng-false-value="undefined">
+                                            {{s}}
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!--<select class="form-control" id="exampleInputServices" ng-model="listServices">-->
+                            <!--<option ng-repeat="serv in services">{{serv.service}}</option>-->
+                            <!--</select>-->
+                            <!--<input type="button" class="btn btn-default" ng-click="addService(listServices)" value="add">-->
+                            <!--</div>-->
+                            <!--<br>-->
+                            <!--<li ng-repeat="item in arrayService track by $index" >{{item}}<span ng-click="removeService($index)" style="color: red"> X</span></li>-->
                         </div>
-                        <br>
-        <li ng-repeat="item in arrayService track by $index" >{{item}}<span ng-click="removeService($index)" style="color: red"> X</span></li>
                     </td>
                 </tr>
                 <tr ng-repeat="one in masters">

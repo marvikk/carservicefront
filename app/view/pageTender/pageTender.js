@@ -13,26 +13,25 @@ angular.module('myApp.pageTender', ['ngRoute'])
         });
     }])
 
-    .controller('PageTenderCtrl', function ($scope, $http, $rootScope, $location) {
+    .controller('PageTenderCtrl', function ($scope, $http, $rootScope, $location, $window) {
 
         $scope.pageTender = [];
 
 // poluchau avtoservice po id
         var id = localStorage.getItem('idTender')
-        var url = $rootScope.url+"api/tenders/" + id;
-        //localStorage.clear();
+        var url = $rootScope.url + "api/tenders/" + id;
 
         $http.get(url).
             success(function (response) {
-            $scope.pageTender = response;
-            console.log($scope.pageTender);
-        });
+                $scope.pageTender = response;
+                console.log($scope.pageTender);
+            });
 
 
 //sohraniau comment
         $scope.comment = {};
 
-        var url3 = $rootScope.url+'api/commentstender';
+        var url3 = $rootScope.url + 'commentstender';
         $scope.saveComment = function(){
             $scope.comment.masterName = $rootScope.Name;
             $scope.comment.masterId = $rootScope.Id;
@@ -40,8 +39,9 @@ angular.module('myApp.pageTender', ['ngRoute'])
             $scope.comment.idTender = id;
 
             $http.post(url3, $scope.comment).success(function (response) {
-               console.log(response);
+                console.log(response);
             })
+            $window.location.reload();
         }
 
 
@@ -49,7 +49,7 @@ angular.module('myApp.pageTender', ['ngRoute'])
         // poluchau kommenty
         // TODO ...
         $scope.comments = [];
-        var url2 = $rootScope.url+"commentstenders";
+        var url2 = $rootScope.url + "commentstenders";
         //?idTender="+id;
         $http.post(url2, {id: id}).
             success(function(data){
