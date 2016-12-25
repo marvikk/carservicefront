@@ -10,7 +10,7 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
     }])
 
 
-    .controller('RegistrationMasterCtrl', function($scope, $http, $location) {
+    .controller('RegistrationMasterCtrl', function($scope, $http, $location, $rootScope) {
         $scope.gPlace;
         $scope.master = {};
         $scope.cars = [];
