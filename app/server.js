@@ -95,7 +95,7 @@ var Master = connection.define('masters', {
     "rateAll": Sequelize.STRING,
     "amountComments": Sequelize.STRING
 });
-Master.sync().then(function(){
+Master.sync({force:true}).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
@@ -132,7 +132,7 @@ var Tender = connection.define("tenders", {
     "date": Sequelize.DATE,
     "comment": Sequelize.STRING
 });
-Tender.sync().then(function(){
+Tender.sync({force:true}).then(function(){
     console.log('Success');
 }).catch(function(err){
     console.log('success error '+ err);
