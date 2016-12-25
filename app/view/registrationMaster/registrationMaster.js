@@ -2,7 +2,7 @@
 
 angular.module('myApp.registrationMaster', ['ngRoute'])
 
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/registrationMaster', {
             templateUrl: 'view/registrationMaster/registrationMaster.html',
             controller: 'RegistrationMasterCtrl'
@@ -10,7 +10,7 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
     }])
 
 
-    .controller('RegistrationMasterCtrl', function($scope, $http, $location, $rootScope) {
+    .controller('RegistrationMasterCtrl', function ($scope, $http, $location, $rootScope) {
         $scope.gPlace;
         $scope.master = {};
         $scope.cars = [];
@@ -19,37 +19,59 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         console.log(listOfServices);
         $scope.masterAuth = {};
 
+
         //add cars
         var url = $rootScope.url + "api/carmanufacturerapi";
         $http.get(url)
-            .success(function(data){
+            .success(function (data) {
                 $scope.cars = data;
                 console.log($scope.master);
+
             });
 
-        $scope.addItem = function(item){
+        $scope.addItem = function (item) {
             $scope.arrayCarsM.push(item);
             $scope.master.cars = $scope.arrayCarsM;
         }
-        $scope.removeItem = function(x){
+        $scope.removeItem = function (x) {
             $scope.arrayCarsM.splice(x, 1);
         }
 
 //addImg
-        $scope.addImg = function(item1){
+        $scope.addImg = function (item1) {
             $scope.master.logo = item1;
         }
 
+        function str_rand() {
+            var result = '';
+            var words = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
+            var max_position = words.length - 1;
+            for (var i = 0; i < 8; ++i) {
+                var position = Math.floor(Math.random() * max_position);
+                result = result + words.substring(position, position + 1);
+            }
+            return result;
+        }
 
-        $scope.masterAuth.password = "54321";
-        $scope.masterAuth.role = "master";
-
-        $scope.addMaster = function() {
+        $scope.addMaster = function () {
             var url4 = $rootScope.url + "api/authentic";
             var url3 = $rootScope.url + "api/masters";
+            //$scope.masterAuth.password = str_rand();
+            $scope.masterAuth.password = "54321";
+
+            $scope.masterAuth.role = "master";
+
             $http.post(url3, $scope.master).success(function (response) {
                 $scope.masterAuth.idUser = response.id;
+                console.log(response.id);
                 $http.post(url4, $scope.masterAuth).success(function (response) {
+                    $http.post($rootScope.url + "sendmessages",
+                        {
+                            email: response.email,
+                            pass: response.password
+                        }).success(function (answer) {
+
+                        })
                 });
             });
 
@@ -57,7 +79,7 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         };
 
     })
-    .directive('googleplace', function() {
+    .directive('googleplace', function () {
         var componentForm = {
             premise: 'long_name',
             street_number: 'short_name',
@@ -81,7 +103,7 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
         };
         return {
             require: 'ngModel',
-            link: function(scope, element, attrs, model) {
+            link: function (scope, element, attrs, model) {
                 //  alert('dir');
                 var options = {
                     types: [],
@@ -89,7 +111,7 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
                 };
                 scope.gPlace = new google.maps.places.Autocomplete(element[0], options);
 
-                google.maps.event.addListener(scope.gPlace, 'place_changed', function() {
+                google.maps.event.addListener(scope.gPlace, 'place_changed', function () {
                     var place = scope.gPlace.getPlace();
                     var location = place.geometry && place.geometry.location ? {
                         Latitude: place.geometry.location.lat(),
@@ -118,4 +140,9 @@ angular.module('myApp.registrationMaster', ['ngRoute'])
             }
         };
     })
-
+//{   "Кузовные работы":{"Аэрография":true,"Полировка":true},
+//    "Диагностика и ремонт двигателя":{"Ремонт двигателя":true},
+//    "КПП":{"Ремонт МКПП":true},
+//    "Электрооборудование":{"Ремонт отопительной системы":true},
+//    "Выхлопная система":{"Ремонт катализаторов":true,"Замена глушителей":true}
+//}
