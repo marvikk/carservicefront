@@ -17,7 +17,7 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         $scope.services = listOfServices;
         $scope.cars = [];
         $scope.checkedCars = [];
-        $scope.checkedService = "Кузовной ремонт";
+        $scope.checkedService = {};
         $scope.checkedCategories = "passCar";
 
 
@@ -71,18 +71,20 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         }
 
         //dobaliau service v array
-        $scope.toggleService = function(service, serviceVid){
-            $scope.vid = serviceVid;
-            if($scope.checkedService.indexOf(service) === -1){
-                $scope.checkedService=(service);
-            }else{
-                $scope.checkedService.splice($scope.checkedService.indexOf(service), 1);
+        $scope.valueServices = [];
+        $scope.toggleService = function(value){
+            if ($scope.valueServices.indexOf(value) === -1) {
+                $scope.valueServices.push(value);
+            } else {
+                $scope.valueServices.splice($scope.valueServices.indexOf(value), 1);
             }
-            console.log($scope.checkedService)
+
+            console.log($scope.valueServices)
         };
 
         $scope.clearService = function(){
-            $scope.checkedService = "Кузовной ремонт";
+            $scope.checkedService = {};
+            $scope.valueServices =[];
         };
 
         $scope.clearPlace = function(){
@@ -92,7 +94,6 @@ angular.module('myApp.masterView', ['ngRoute', 'ngAnimate', 'ngSanitize', 'ui.bo
         $scope.getFilter = function() {
             $http.post($rootScope.url+ "getmechanicsbyall", {
                 services: $scope.checkedService,
-                vid: $scope.vid,
                 cars: $scope.checkedCars,
                 chosenPlace: $scope.chosen || {
                     FormattedAddress: "Israel",

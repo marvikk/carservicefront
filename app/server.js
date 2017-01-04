@@ -182,7 +182,6 @@ function sendMail(email, password){
     });
 }
 
-
 app.post('/sendmessages', function(req, res){
     var email = req.body.email;
     var pass = req.body.pass;
@@ -216,7 +215,6 @@ CarModelsApi.sync().then(function(){
     console.log('success error '+ err);
 });
 
-
 app.post('/getcomments', function(req, res){
     //console.log(req.body.id);
     Comment.findAll({where: {
@@ -248,15 +246,11 @@ app.post('/getclientbyid', function(req, res){
 
 app.post('/getmechanicsbyall', function(req, res){
     var car = req.body.cars;
-    var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {
-            [vid]: {
-                [service]: "true"}},
+        services: req.body.services,
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"
@@ -269,15 +263,11 @@ app.post('/getmechanicsbyall', function(req, res){
 
 app.post('/getmountingbyall', function(req, res){
     var car = req.body.cars;
-    var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {
-            [vid]: {
-                [service]: "true"}},
+        services: req.body.services,
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"
@@ -290,15 +280,11 @@ app.post('/getmountingbyall', function(req, res){
 
 app.post('/getcarwashbyall', function(req, res){
     var car = req.body.cars;
-    var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {
-            [vid]: {
-                [service]: "true"}},
+        services: req.body.services,
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"
@@ -311,15 +297,11 @@ app.post('/getcarwashbyall', function(req, res){
 
 app.post('/gettowtruckbyall', function(req, res){
     var car = req.body.cars;
-    var service = req.body.services;
     var address = req.body.chosenPlace;
     var category = req.body.categories;
-    var vid = req.body.vid;
     Master.findAll({where: {
         cars: {$contains :car},
-        services: {
-            [vid]: {
-                [service]: "true"}},
+        services: req.body.services,
         "chosenPlace.FormattedAddress": {$like :"%" + address.FormattedAddress},
         "categories": {
             [category]: "true"
