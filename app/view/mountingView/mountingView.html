@@ -47,32 +47,29 @@
                 </div>
 
                 <div class="btn-group">
-                    <!--<button type="button" class="btn btn-default">Вид работ Автосервисoв<span ng-show="toggleService">: {{checkedService}}</span></button>-->
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Вид работ Автосервисoв<span ng-show="toggleService">: {{checkedService}}</span>
+                        Вид работ Автосервисoв<span ng-show="toggleService">: {{valueServices}}</span>
                         <span class="caret"></span>
                     </button>
                     <button type="button" class="btn btn-default" ng-click="clearService()" style="color: red">X</button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                         <li role="separator" class="divider"></li>
                         <ul ng-repeat="serv in services">
-                            <li ng-model="master.services[serv.service]">{{serv.service}}
-                                <ul ng-repeat="s in serv.vid">
+                            <li>{{serv.service}}
+                                <ul ng-repeat="(key, value) in serv.vid">
                                     <li class="list-unstyled">
-                                        <input type="radio" name="optradio" ng-checked="checkedService.indexOf(s) != -1"
-                                               ng-click="toggleService(s, serv.service)">{{s}}
+                                        <input type="checkbox" ng-click="toggleService(value)"
+                                               ng-checked="valueServices.indexOf(value) != -1"
+                                               ng-model="checkedService[serv.service][value]" ng-false-value="undefined">
+                                        {{value}}
                                     </li>
                                 </ul>
                             </li>
                         </ul>
                         <li role="separator" class="divider"></li>
-                        <!--<li>-->
-                        <!--<button type="button" class="glyphicon glyphicon-ok">-->
-                        <!--Apply-->
-                        <!--</button>-->
-                        <!--</li>-->
                     </ul>
                 </div>
+
 
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
