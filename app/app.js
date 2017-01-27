@@ -30,7 +30,9 @@ angular.module('myApp', [
         $rootScope.Id = $cookieStore.get('Id');
         $rootScope.isAuthorization = $cookieStore.get('isAuthorization');
         $rootScope.Person = $cookieStore.get('Person');
-        $rootScope.url = "https://secure-citadel-93919.herokuapp.com/"
+        //$rootScope.url = "https://secure-citadel-93919.herokuapp.com/"
+        $rootScope.url = "http://localhost:3001/";
+
     })
     .controller("MainCtrl", function ($scope, $rootScope, $cookieStore, $location) {
         $scope.logOut = function () {

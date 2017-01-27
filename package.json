@@ -13,6 +13,7 @@
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "new-sequelize-restful": "0.0.20",
+    "nodemailer": "^2.7.2",
     "pg": "^6.1.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.25.0"
