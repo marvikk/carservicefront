@@ -50,7 +50,7 @@ angular.module('myApp.viewLogin', ['ngRoute'])
 
                     }
                 }else{
-                    $location.path("/registrationClient");
+                    document.getElementById('alert').innerHTML = 'The user with the login is not registered';
                     $cookieStore.put("isAuthorization", false);
                 }
 

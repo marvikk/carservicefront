@@ -40,3 +40,6 @@
   content: "";
   padding: 0;
 }
+#alert{
+    color: red;
+}
